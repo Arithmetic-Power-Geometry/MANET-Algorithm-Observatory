@@ -19,7 +19,7 @@ P017,analysis,P0,Run statistics sensitivity Pareto ranking stability failure fro
 P018,novel_algo,P0,Decide G-CAP gate,P012+P017,go/no-go decision,complete
 P019,novel_algo,P0,Design/test novel algorithm only if justified,P018,confirmatory evidence,waived_no_go
 P020,artifacts,P0,Generate final review and benchmark figures/tables,P010-P019,frozen artifact set,complete
-P021,reproducibility,P0,Clean-run regeneration and checksum audit,P020,reproducibility release,pending
+P021,reproducibility,P0,Clean-run regeneration and checksum audit,P020,reproducibility release,complete
 P022,release,P0,Tag/archive evidence release,P021,immutable paper evidence version,pending
 P023,journal,P1,Recheck target journal current requirements,P022,submission profile,pending
 P024,paper,P1,Draft paper from frozen artifacts,P023,complete manuscript,pending
