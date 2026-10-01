@@ -1,0 +1,17 @@
+evidence_id,source_or_artifact,family,comparability_class,maturity,reason,claim_use
+CE001,M0001,DSDV,C0,E0,foundational mechanism definition only,mechanism/history
+CE002,M0002,AODV,C0,E0,protocol specification only,mechanism/history
+CE003,M0004,DSR,C0,E0,protocol specification only,mechanism/history
+CE004,M0003,OLSR,C0,E0,protocol specification only,mechanism/history
+CE005,M0005,AOMDV,C1,E1,primary evaluation not normalized to Observatory contract,multipath mechanism only
+CE006,M0012,AODV-OLSR-DSDV,C4,E4,controlled methodology study across propagation assumptions,external robustness evidence
+CE007,M0022,GPSR,C0,E0,foundational geographic mechanism,mechanism/history
+CE008,M0023,MQ-Routing,C1,E2,study-specific learning evaluation,learning prior art
+CE009,M0024,Q-Routing,C1,E2,study-specific learning evaluation,learning prior art
+CE010,M0025,ACO multipath,C1,E2,study-specific metaheuristic evaluation,metaheuristic prior art
+CE011,M0026,SD-GPSR,C1,E2,study-specific SD-MANET evaluation,cross-layer prior art
+CE012,M0027,Federated trust routing,C1,E2,study-specific security evaluation,federated prior art
+CE013,M0028,MARL-GNN,C1,E2,study-specific intelligent-routing evaluation,MARL-GNN prior art
+CE014,M0029,Transformer-GNN,C1,E2,adjacent MANET-IoT population,boundary prior art
+CE015,M0030,Secure Q-learning,C1,E2,study-specific security evaluation,secure learning prior art
+OBS-S2,Observatory S2,AODV-DSDV-DSR-OLSRv1,C4,E4,320 frozen common-contract runs with 20 independent seeds per scenario,controlled comparative evidence
