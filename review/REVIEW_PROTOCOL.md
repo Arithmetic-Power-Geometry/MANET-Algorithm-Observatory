@@ -1,145 +1,68 @@
-# Systematic Evidence Review Protocol
+# Evidence Review Protocol
 
 ## Scope
 
-Mobile ad hoc network routing research, from foundational MANET routing mechanisms through modern optimization, learning, security-aware, energy-aware, and adaptive approaches.
+The review covers mobile ad hoc network routing from foundational proactive and reactive mechanisms through hybrid, multipath, geographic, QoS-aware, energy-aware, security-aware, metaheuristic, machine-learning, reinforcement-learning, federated, multi-agent, and graph-based approaches.
 
 ## Review design
 
-The review combines:
+The review combines mechanism-centered synthesis, decision-centered taxonomy, experimental-design audit, reproducibility audit, claim-comparability audit, condition-specific gap analysis, and controlled reproduction for a bounded classical benchmark.
 
-- systematic literature search and screening;
-- mechanism-centered taxonomy;
-- decision-centered taxonomy;
-- experimental-design audit;
-- reproducibility audit;
-- claim-comparability audit;
-- condition-specific gap mining;
-- later controlled reproduction in the Observatory benchmark.
+The primary population is MANET routing. VANET, FANET, WSN, DTN, mesh, IoT, and related studies are retained only as transfer or boundary evidence unless they directly include the MANET population.
 
-## Research questions
+## Corpus construction
 
-**RQ1 — Evolution.** How has the MANET routing problem evolved from classical topology-based routing to adaptive, optimization-based, and learning-based routing?
+Source discovery proceeds in four stages:
 
-**RQ2 — Decision mechanism.** What decision does each protocol or algorithm make, what information does it require, and at what temporal/spatial horizon?
+1. protocol specifications and foundational papers anchor mechanism identity;
+2. recent reviews establish terminology, candidate primary studies, and non-redundancy;
+3. backward and forward citation tracing expands primary-study coverage;
+4. implementation repositories and simulator documentation are inspected separately from publication claims.
 
-**RQ3 — Evaluation coverage.** Which mobility, density, scale, traffic, propagation, energy, failure, and adversarial regimes have actually been tested?
+Bibliographic identity is resolved preferentially by DOI or RFC; otherwise, normalized title, year, and first author are used for deduplication. Preprints and final publications are linked rather than counted as independent evidence unless they contain materially different experiments.
 
-**RQ4 — Comparability.** Which published performance claims are directly comparable, partially comparable, or non-comparable?
+The review uses conceptual saturation rather than exhaustive enumeration. Search continues when a source reveals a previously unrepresented mechanism, information scope, temporal mode, deployment regime, or materially conflicting result, and stops when additional sources repeat already represented mechanism classes without changing the synthesis.
 
-**RQ5 — Reproducibility.** Which studies provide enough implementation and experimental detail to reproduce their claims?
+Because the review did not use a single database-enumeration stage with a recorded retrieval total, database-specific hit counts and a PRISMA-style identification flow are not reported.
 
-**RQ6 — Robustness.** How sensitive are conclusions to mobility, propagation, topology, traffic, random seed, and implementation choices?
+## Evidence extraction
 
-**RQ7 — Failure frontiers.** Where does each routing family begin to degrade or cease to satisfy an application constraint?
+Empirical claims retain their experimental context, including algorithm or protocol, baseline, scenario, node count, geometry or density, mobility, speed, traffic and load, radio/MAC/propagation, simulator or testbed, duration, randomization, replication, metric definition, effect, uncertainty, implementation source, artifact availability, and limitations.
 
-**RQ8 — Ranking stability.** When and why do pairwise or multi-algorithm rankings change across scenario conditions?
+## Verification states
 
-**RQ9 — Generalization.** For learned algorithms, how well do policies transfer across topology, scale, mobility, traffic, channel, and adversarial shifts?
+- **V0** — discovery
+- **V1** — bibliographic verification
+- **V2** — cited-role verification
+- **V3** — structured extraction
+- **V4** — synthesis/artifact admission
 
-**RQ10 — Cost.** What control, computation, communication, training, inference, memory, energy, and deployment costs accompany reported gains?
+Sources with unresolved bibliographic identity, scope, or experimental context remain at the lower verification or comparability state rather than being promoted by inference.
 
-**RQ11 — Evidence gaps.** Which gaps are literature gaps, reproducibility gaps, evaluation gaps, contradiction gaps, or experimentally demonstrated capability gaps?
+## Comparability states
 
-**RQ12 — Research opportunity.** Which verified capability gaps justify a new routing mechanism rather than another parameter-tuned variant?
+- **C0** — definition or mechanism evidence only
+- **C1** — qualitative comparison only
+- **C2** — partial comparability with material nuisance differences
+- **C3** — core scenario, metric definition, implementation identity, and major assumptions align, but evidence was not produced under one shared or explicitly matched controlled contract
+- **C4** — common-contract or explicitly matched controlled evidence with aligned scenario realization, metric definition, implementation provenance, and replication unit
 
-## Study strata
+## Evidence maturity
 
-The corpus is tagged by evidence stratum:
+Evidence maturity is tracked independently from verification and comparability:
 
-1. standards / protocol specifications;
-2. foundational algorithm papers;
-3. comparative experimental studies;
-4. optimization/metaheuristic routing;
-5. security/trust routing;
-6. energy/QoS-aware routing;
-7. ML/RL/DRL/MARL/GNN routing;
-8. real-device/testbed studies;
-9. systematic reviews/surveys;
-10. reproducibility/benchmarking methodology.
+- **E0** definition
+- **E1** demonstration
+- **E2** comparative simulation
+- **E3** reproducible comparison
+- **E4** robustness evidence
+- **E5** generalization or stress evidence
+- **E6** emulation or testbed evidence
+- **E7** field evidence
+- **E8** independent replication
 
-## Inclusion criteria
+These dimensions are evidence descriptors and are not aggregated into a protocol-performance score.
 
-A study is eligible when it materially addresses MANET routing or an algorithmic mechanism directly transferable to MANET routing and provides at least one of: mechanism definition, protocol specification, comparative evaluation, analytical result, reproducibility artifact, or empirical routing result.
+## Research obligations
 
-## Exclusion criteria
-
-Exclude items that only mention MANETs without routing relevance, lack enough technical detail to identify the routing mechanism, duplicate an already included version without additional evidence, or are inaccessible secondary descriptions where the primary source is available.
-
-## Extraction principle
-
-Do not extract a single "performance score" from heterogeneous papers. Extract the claim together with its experimental context.
-
-Every empirical claim is represented as:
-
-```
-claim
-algorithm
-baseline
-scenario
-node_count
-area_density
-mobility_model
-speed
-pause_time
-traffic
-load
-radio
-mac
-propagation_model
-terrain_or_obstruction
-energy_model
-attack_model
-simulator_or_testbed
-duration
-randomization
-replications
-metric
-effect
-uncertainty
-implementation_source
-artifact_availability
-limitations
-```
-
-## Comparability classes
-
-- **C0 — non-comparable:** materially different or insufficiently reported settings.
-- **C1 — qualitative only:** mechanism-level comparison possible; numeric comparison invalid.
-- **C2 — partially comparable:** several core conditions aligned but important nuisance variables differ.
-- **C3 — strongly comparable:** core scenario, measurement definition, and experimental assumptions aligned.
-- **C4 — controlled:** produced under the shared Observatory benchmark.
-
-## Gap classes
-
-- **G-LIT:** sparse or absent literature.
-- **G-REP:** insufficient reproducibility.
-- **G-EVAL:** important condition not evaluated.
-- **G-CONTRA:** apparently conflicting claims requiring controlled resolution.
-- **G-ROB:** result sensitive to nuisance assumptions.
-- **G-GEN:** weak out-of-distribution/generalization evidence.
-- **G-COST:** computational/communication/energy cost omitted.
-- **G-REAL:** simulation-to-real evidence missing.
-- **G-CAP:** controlled experiments demonstrate a capability failure that remains unresolved.
-
-A candidate novel algorithm should primarily target **G-CAP**, ideally supported by G-CONTRA/G-ROB/G-GEN rather than only G-LIT.
-
-## Review outputs
-
-The review stage should generate:
-
-- PRISMA-style screening flow;
-- historical mechanism timeline;
-- routing-family taxonomy;
-- decision-authority taxonomy;
-- evidence coverage matrix;
-- baseline network;
-- evaluation-practice audit;
-- reproducibility matrix;
-- propagation/mobility realism matrix;
-- learning-generalization matrix;
-- claim contradiction map;
-- research-gap atlas;
-- benchmark candidate list.
-
-The later benchmark stage adds ranking-stability maps, Pareto fronts, sensitivity plots, failure frontiers, and novel-algorithm comparisons.
+The evidence synthesis tracks unresolved obligations including robustness, evaluation coverage, out-of-distribution generalization, resource cost, simulation-to-real correspondence, seed-level uncertainty, and demonstrated capability gaps. A capability-gap claim requires controlled evidence that an existing mechanism fails to supply a defined capability under explicit information and resource constraints.
