@@ -1,0 +1,67 @@
+name: ns3 S2 confirmatory batch
+on:
+  push:
+    paths:
+      - "benchmark/S2_BATCH_TRIGGER.md"
+  workflow_dispatch:
+jobs:
+  s2:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: nsnam/ns-3-dev-git
+          ref: ns-3.47
+          path: ns-3.47
+      - name: Build once
+        run: |
+          cp sim/ns3/observatory_tier1_runner.cc ns-3.47/scratch/observatory-tier1.cc
+          cd ns-3.47
+          ./ns3 configure --build-profile=release
+          ./ns3 build scratch/observatory-tier1
+      - name: Run frozen S2
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/s2/raw
+          protocols=(AODV DSDV DSR OLSR)
+          tail -n +2 benchmark/S2_SCENARIOS.csv | while IFS=, read -r scenario nodes area speed rate sim start payload purpose; do
+            tail -n +2 benchmark/S2_CONFIRMATORY_SEEDS.csv | while IFS=, read -r set seed run purpose2 status; do
+              for p in "${protocols[@]}"; do
+                out="artifacts/s2/raw/${scenario}_${p}_seed${seed}.csv"
+                (cd ns-3.47 && ./ns3 run "scratch/observatory-tier1 --protocol=$p --output=../$out --scenario=$scenario --observatoryCommit=${GITHUB_SHA} --nodes=$nodes --area=$area --simTime=$sim --start=$start --ratePps=$rate --payload=$payload --speed=$speed --seed=$seed --run=$run")
+                python scripts/validate_common_run.py "$out"
+              done
+            done
+          done
+      - name: Aggregate
+        run: |
+          python - <<'PY'
+          import csv,glob,math,statistics,collections
+          files=sorted(glob.glob("artifacts/s2/raw/*.csv"))
+          rows=[]
+          for f in files:
+              with open(f,newline="") as h:
+                  r=next(csv.DictReader(h)); r["artifact_path"]=f; rows.append(r)
+          assert len(rows)==320, f"expected 320 raw runs, got {len(rows)}"
+          fields=list(rows[0])+["artifact_path"]
+          with open("artifacts/s2/master_results.csv","w",newline="") as h:
+              w=csv.DictWriter(h,fieldnames=fields); w.writeheader(); w.writerows(rows)
+          groups=collections.defaultdict(list)
+          for r in rows: groups[(r["scenario_id"],r["protocol"])].append(float(r["pdr"]))
+          with open("artifacts/s2/pdr_summary.csv","w",newline="") as h:
+              w=csv.writer(h); w.writerow(["scenario_id","protocol","n","mean_pdr","median_pdr","sd_pdr","min_pdr","max_pdr"])
+              for (s,p),v in sorted(groups.items()):
+                  w.writerow([s,p,len(v),statistics.mean(v),statistics.median(v),statistics.stdev(v),min(v),max(v)])
+          with open("artifacts/s2/README.md","w") as h:
+              h.write("# S2 confirmatory artifact\n\n")
+              h.write(f"Raw validated runs: {len(rows)}. Design was frozen before S2 execution.\n")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: s2-confirmatory
+          path: artifacts/s2
+          if-no-files-found: error
