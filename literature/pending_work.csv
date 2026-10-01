@@ -1,0 +1,26 @@
+work_id,phase,priority,task,dependency,deliverable,status
+P001,corpus,P0,Saturate classical routing corpus,master registry,V3 classical evidence rows,in_progress
+P002,corpus,P0,Saturate hybrid multipath geographic corpus,P001,V3 family evidence rows,pending
+P003,corpus,P0,Saturate QoS energy security trust corpus,P001,V3 family evidence rows,pending
+P004,corpus,P0,Saturate metaheuristic corpus,P001,V3 family evidence rows,pending
+P005,corpus,P0,Saturate ML RL DRL corpus,P001,V3 family evidence rows,pending
+P006,corpus,P0,Saturate MARL GNN predictive federated cross-layer corpus,P005,V3 family evidence rows,pending
+P007,corpus,P0,Saturate testbed field negative contradiction evidence,P001-P006,V3 cross-cutting rows,pending
+P008,novelty,P0,Complete closest-review non-redundancy matrix,P001-P007,verified novelty delta matrix,pending
+P009,evidence,P0,Complete C0-C4 comparability classification,P001-P007,comparability atlas,pending
+P010,evidence,P0,Complete E0-E8 maturity profiles,P001-P007,evidence maturity atlas,pending
+P011,gaps,P0,Resolve contradiction candidates,P009,contradiction map,pending
+P012,gaps,P0,Freeze evidence-backed research obligations,P011,gap atlas,pending
+P013,benchmark,P0,Verify and freeze simulator implementations,P001-P002,implementation manifest,pending
+P014,benchmark,P0,Build T1 smoke benchmark,P013,passing CI benchmark,pending
+P015,benchmark,P0,Freeze scenario seed metric contracts,P014,benchmark release candidate,pending
+P016,benchmark,P0,Run full controlled benchmark,P015,versioned raw results,pending
+P017,analysis,P0,Run statistics sensitivity Pareto ranking stability failure frontiers,P016,benchmark artifacts,pending
+P018,novel_algo,P0,Decide G-CAP gate,P012+P017,go/no-go decision,pending
+P019,novel_algo,P0,Design/test novel algorithm only if justified,P018,confirmatory evidence,pending
+P020,artifacts,P0,Generate final review and benchmark figures/tables,P010-P019,frozen artifact set,pending
+P021,reproducibility,P0,Clean-run regeneration and checksum audit,P020,reproducibility release,pending
+P022,release,P0,Tag/archive evidence release,P021,immutable paper evidence version,pending
+P023,journal,P1,Recheck target journal current requirements,P022,submission profile,pending
+P024,paper,P1,Draft paper from frozen artifacts,P023,complete manuscript,pending
+P025,audit,P1,Claim-evidence reference figure-table algorithm line audit,P024,submission-ready package,pending
