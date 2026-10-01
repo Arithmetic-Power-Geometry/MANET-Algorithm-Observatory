@@ -9,7 +9,9 @@ x=r[0]
 assert None not in x, "data row has more columns than header"
 required={"node_count","area_width_m","area_height_m","mobility_model","max_speed_mps","traffic_model","packet_rate_pps","payload_bytes","socket_bind_status","tx_attempts","tx_rejected","socket_accepted_packets","app_packets_sent","app_packets_received"}
 assert required.issubset(x), f"schema missing: {required-set(x)}"
-assert x["mobility_model"]=="RandomWaypoint"
+assert x["mobility_model"] in {"RandomWaypoint","ConstantPositionGrid"}, f"unsupported mobility_model: {x['mobility_model']}"
+assert float(x["area_width_m"])>0 and float(x["area_height_m"])>0
+assert float(x["max_speed_mps"])>=0
 assert x["traffic_model"]=="UDP-periodic"
 bind_status=int(x["socket_bind_status"]); attempts=int(x["tx_attempts"]); rejected=int(x["tx_rejected"]); accepted=int(x["socket_accepted_packets"]); tx=int(x["app_packets_sent"]); rx=int(x["app_packets_received"]); matched=int(x["matched_packets"])
 pdr=float(x["pdr"]); goodput=float(x["goodput_bps"])
