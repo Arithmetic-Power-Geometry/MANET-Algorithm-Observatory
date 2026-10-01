@@ -12,13 +12,13 @@ Which published MANET-routing comparisons are genuinely commensurate once simula
 How mature and reproducible is the empirical evidence supporting major MANET-routing families?
 
 **RQ4 — Conditional performance.**
-Under controlled common conditions, how do representative Tier-1 routing implementations respond to changes in scale, density, mobility, load, and propagation?
+Under a frozen common implementation and measurement contract, how do representative Tier-1 routing implementations respond to the admitted baseline, mobility-stress, load-stress, and scale-stress scenarios?
 
 **RQ5 — Ranking stability and applicability.**
-When do pairwise performance orderings remain stable, and where do they reverse as operating conditions change?
+How stable are protocol rankings across independent seeds and the frozen operating scenarios, and which pairwise differences remain distinguishable after uncertainty and multiplicity are considered?
 
 **RQ6 — Failure frontiers.**
-Under predeclared application constraints, where do evaluated routing approaches cease to satisfy delivery, latency, or resource requirements?
+What stress signals are visible in the controlled benchmark, and which stronger failure-frontier claims remain unsupported without predeclared application thresholds and denser condition sweeps?
 
 **RQ7 — Surviving research gaps.**
 Which apparent literature gaps remain after comparability, reproducibility, robustness, and controlled evidence are considered, and which qualify as demonstrated capability gaps?
