@@ -1,0 +1,9 @@
+ref_id,title,authors,year,venue,identifier,source_type,families,evidence_role,primary_secondary,verification_state,last_verified,notes
+R001,Highly dynamic Destination-Sequenced Distance-Vector routing (DSDV) for mobile computers,,1994,ACM SIGCOMM,10.1145/190809.190336,original paper,DSDV,foundational mechanism,primary,V1,2026-10-01,
+R002,Ad hoc On-Demand Distance Vector (AODV) Routing,,2003,IETF RFC 3561,10.17487/RFC3561,RFC,AODV,protocol definition,primary,V1,2026-10-01,
+R003,Optimized Link State Routing Protocol (OLSR),,2003,IETF RFC 3626,10.17487/RFC3626,RFC,OLSR,protocol definition,primary,V1,2026-10-01,
+R004,The Dynamic Source Routing Protocol (DSR) for Mobile Ad Hoc Networks for IPv4,,2007,IETF RFC 4728,10.17487/RFC4728,RFC,DSR,protocol definition,primary,V1,2026-10-01,
+R005,The Optimized Link State Routing Protocol Version 2,,2014,IETF RFC 7181,10.17487/RFC7181,RFC,OLSRv2,protocol definition,primary,V1,2026-10-01,
+R006,The Babel Routing Protocol,,2021,IETF RFC 8966,10.17487/RFC8966,RFC,Babel,protocol definition,primary,V1,2026-10-01,
+R007,Ad hoc on-demand multipath distance vector routing,,2006,Wireless Communications and Mobile Computing,10.1002/wcm.432,original paper,AOMDV,foundational mechanism,primary,V1,2026-10-01,
+R008,Inappropriate propagation model selection in ad hoc networks routing studies,,2026,Ad Hoc Networks,10.1016/j.adhoc.2026.104417,empirical study,AODV;OLSR;DSDV,evaluation validity,primary,V2,2026-10-01,Controlled ns-3 evidence that propagation choice can dissolve or reverse rankings
