@@ -5,6 +5,9 @@ on:
   push:
     paths:
       - "sim/ns3/observatory_tier1_runner.cc"
+      - "scripts/validate_common_run.py"
+      - "benchmark/COMMON_RUN_OUTPUT_SCHEMA.csv"
+      - "benchmark/METRIC_FORMULAE.md"
       - ".github/workflows/ns3-common-runner.yml"
 
 jobs:
