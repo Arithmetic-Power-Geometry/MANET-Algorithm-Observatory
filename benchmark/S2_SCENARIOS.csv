@@ -1,0 +1,5 @@
+scenario_id,nodes,area_m,speed_mps,rate_pps,sim_time_s,start_s,payload_bytes,purpose
+S2_BASE,25,250,5,2,60,10,512,baseline mobile confirmatory
+S2_FAST,25,250,15,2,60,10,512,mobility stress
+S2_LOAD,25,250,5,5,60,10,512,offered-load stress
+S2_SCALE,50,354,5,2,60,10,512,approximately constant-density scale stress
