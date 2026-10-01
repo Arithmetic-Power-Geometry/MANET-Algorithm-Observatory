@@ -1,28 +1,43 @@
-# Gate 6 — S2 confirmatory analysis
+# S2 Confirmatory Analysis
 
-Source: GitHub Actions run 36845825031, artifact s2-confirmatory (11153444629). Design: 4 protocols × 20 predeclared disjoint seeds × 4 frozen scenarios = 320 validated raw runs.
+The controlled S2 analysis comprises 4 protocols × 4 pre-specified scenarios × 20 predeclared seeds = 320 validated protocol-scenario-seed runs.
 
-## Interpretation rules
-S2 is confirmatory for the frozen benchmark only. It does not establish a universal MANET protocol ordering. Comparisons are paired by seed within scenario. PDR uncertainty is assessed from the 20 independent seed-level replication units; time samples are not treated as independent replications.
+## Statistical unit
 
-## Mean PDR by scenario
-| Scenario | AODV | DSDV | DSR | OLSRv1 |
-|---|---:|---:|---:|---:|
-| BASE | 0.6075 | 0.4130 | 0.6090 | 0.3905 |
-| FAST | 0.3485 | 0.2080 | 0.3675 | 0.1840 |
-| LOAD | 0.6238 | 0.4016 | 0.5738 | 0.3900 |
-| SCALE | 0.3990 | 0.1815 | 0.2365 | 0.1240 |
+The experimental unit is one protocol-scenario-seed run. Pairwise comparisons are matched by seed. Reported uncertainty uses 10,000-resample bootstrap 95% intervals, paired Wilcoxon tests with Pratt treatment of zeros, and Holm adjustment within each scenario family.
 
-## Paired PDR findings
-AODV versus DSR is not cleanly separated in BASE (mean paired difference -0.0015; bootstrap 95% CI -0.1170 to 0.1255), FAST (-0.0190; -0.1305 to 0.0850), or LOAD (0.0500; -0.0506 to 0.1608). In SCALE, the paired difference is 0.1625 with bootstrap 95% CI 0.0280 to 0.2950; Holm-adjusted Wilcoxon p=0.0437.
+## AODV versus DSR
 
-AODV exceeds DSDV and OLSRv1 in paired PDR in all four frozen scenarios under this benchmark, with bootstrap intervals excluding zero and Holm-adjusted Wilcoxon p<0.01 in each comparison. DSR exceeds DSDV and OLSRv1 in BASE, FAST, and LOAD under the same analysis; SCALE comparisons involving DSR are less stable after multiplicity correction.
+The analysis does not provide evidence of a reproducible directional separation in BASE, FAST, or LOAD:
+
+- BASE: mean paired difference -0.0015; 95% CI [-0.1170, 0.1255]; adjusted p = 0.8638
+- FAST: -0.0190; [-0.1305, 0.0850]; adjusted p = 0.8960
+- LOAD: 0.0500; [-0.0506, 0.1608]; adjusted p = 1.0000
+
+Under SCALE, the paired AODV-minus-DSR difference is 0.1625 with 95% CI [0.0280, 0.2950] and Holm-adjusted p = 0.0437.
 
 ## Ranking stability
-Seed-level rank-1 membership changes substantially. Strict rank-1 fractions for AODV/DSR are BASE 0.35/0.55, FAST 0.50/0.45, LOAD 0.40/0.45, SCALE 0.65/0.15. Therefore the evidence does not support a single universal winner claim.
 
-## Failure/zero-delivery signal
-Zero-PDR frequency rises under SCALE: AODV 2/20, DSDV 7/20, DSR 8/20, OLSRv1 8/20. This is a stress/failure signal for the frozen scale scenario, not yet a formal failure frontier; a frontier claim requires a predeclared threshold and denser condition sweep.
+Strict rank-1 fractions for AODV/DSR are:
 
-## Gate decision
-Gate 6 confirmatory comparison is substantially complete for the frozen S2 design. Formal continuous failure-frontier claims remain unsupported by only four discrete scenarios and must not be overstated. The next gate is literature/comparability synthesis and G-CAP determination. A new routing algorithm is not justified solely by these classical-protocol comparisons.
+- BASE: 0.35 / 0.55
+- FAST: 0.50 / 0.45
+- LOAD: 0.40 / 0.45
+- SCALE: 0.65 / 0.15
+
+The variation is condition-specific evidence and is not interpreted as a universal protocol ordering.
+
+## Zero-delivery incidence
+
+Under SCALE, zero-PDR counts are:
+
+- AODV: 2/20
+- DSDV: 7/20
+- DSR: 8/20
+- OLSRv1: 8/20
+
+The four discrete scenarios support stress contrasts but do not establish a continuous failure frontier.
+
+## Scope
+
+The S2 benchmark is a bounded classical-protocol bridge under a common ns-3.47 measurement contract. Learning- and graph-based methods are synthesized from the literature and are not included in this controlled comparison because their training, observation, tuning, and implementation budgets are not equalized by the S2 contract.

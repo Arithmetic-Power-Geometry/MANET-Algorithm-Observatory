@@ -1,12 +1,9 @@
-# Frozen ns-3 Benchmark Version
+# ns-3 Benchmark Version
 
-## Canonical simulator
-**ns-3.47**, released 2026-02-16.
+The controlled benchmark uses **ns-3.47**.
 
-Every result records the exact upstream release and Observatory commit. Changing simulator version after confirmatory evaluation begins requires a new benchmark version and compatibility audit.
+The evaluated implementation identities are AODV, DSDV, the ns-3 DSR implementation used by the runner, and OLSRv1. OLSRv1 and OLSRv2 are not treated as interchangeable experimental objects.
 
-## Tier-1 rationale
-The upstream MANET comparison example supports AODV, DSDV, DSR, and OLSR. It also documents that FlowMonitor is not usable with DSR in that comparison path. Common primary metrics therefore require protocol-independent application accounting or another validated common trace layer.
+The benchmark uses protocol-independent application accounting so that the primary packet-delivery-ratio measurement does not depend on protocol-specific internal tracing.
 
-## Freeze order
-Simulator version -> runner source -> scenario contract -> metric definitions -> seed list -> confirmatory execution.
+Any future change in simulator version, runner logic, scenario definitions, metric definitions, or seed policy constitutes a distinct experimental configuration and must be evaluated separately.

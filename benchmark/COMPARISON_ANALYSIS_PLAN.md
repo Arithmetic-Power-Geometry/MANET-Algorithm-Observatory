@@ -1,62 +1,31 @@
-# Tier-1 Comparison Analysis Plan
+# Confirmatory Comparison Analysis Plan
 
-## Primary principle
+## Principle
 
-The comparison is condition-indexed. There is no universal winner variable.
+All comparisons are condition-indexed. There is no universal winner variable.
 
-For protocol A under condition x, define a metric vector:
+## Run validity
 
-P_A(x) = [PDR, goodput, delay, jitter, control cost, discovery/repair behavior, runtime, memory]
+A run is excluded from confirmatory analysis when required raw output is missing, simulator execution fails, application accounting is invalid, provenance is incomplete, or the scenario identity does not match the contract.
 
-## Analysis layers
+## Within-condition summaries
 
-### 1. Run validity
-Reject/flag runs with:
-- missing raw output;
-- non-zero simulator exit;
-- invalid application accounting;
-- missing provenance;
-- scenario mismatch.
+For each protocol and scenario, analysis retains the number of valid seed-level replications and reports the metric summaries required by the comparison.
 
-### 2. Within-condition summaries
-For each protocol × condition:
-- number of valid replications;
-- mean where appropriate;
-- median where appropriate;
-- standard deviation;
-- confidence interval;
-- distributional diagnostics.
+## Pairwise effects
 
-### 3. Pairwise effects
-For each metric and condition:
-- effect direction;
-- absolute difference;
-- relative difference where meaningful;
-- uncertainty;
-- inferential test only after assumptions/test choice are frozen.
+Pairwise PDR analysis uses seed-matched absolute differences, bootstrap 95% confidence intervals, paired Wilcoxon tests with Pratt treatment of zeros, and Holm adjustment within each scenario family.
 
-### 4. Multi-objective analysis
-Identify Pareto-efficient protocols under each operating condition rather than collapsing all metrics into an arbitrary single score.
+The replication unit is the protocol-scenario-seed run; packet-level observations within a run are not treated as independent replications.
 
-### 5. Ranking stability
-Measure how pairwise ordering changes across:
-- mobility;
-- density/scale;
-- load;
-- propagation;
-- seed uncertainty.
+## Ranking stability
 
-### 6. Failure frontiers
-Define requirements before analysis, e.g.:
-- minimum delivery reliability;
-- maximum delay;
-- maximum control/resource budget.
+Seed-level rank membership is retained because protocol ordering can vary across random realizations and operating conditions.
 
-Estimate where a protocol crosses from satisfying to violating a requirement.
+## Zero-delivery incidence
+
+Complete-delivery failure is summarized separately from mean PDR so that a lower mean is not interpreted as a formal failure frontier.
 
 ## Reporting rule
 
-A result must always retain:
-protocol + implementation + condition + metric definition + replication count + uncertainty.
-
-A sentence such as "AODV outperforms OLSR" is inadmissible without the qualifying condition and metric.
+Every controlled claim retains implementation identity, scenario, metric definition, replication unit, uncertainty, and the relevant comparison boundary.

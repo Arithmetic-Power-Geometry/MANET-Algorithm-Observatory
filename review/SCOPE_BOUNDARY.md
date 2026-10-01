@@ -2,30 +2,17 @@
 
 ## Primary population
 
-The primary evidence population is **routing in mobile ad hoc networks (MANETs)** without assuming fixed infrastructure.
+The primary evidence population is routing in mobile ad hoc networks (MANETs) without fixed infrastructure.
 
-Included:
-- foundational MANET routing protocols;
-- MANET routing optimization;
-- QoS/energy/security/trust mechanisms that materially alter routing;
-- MANET machine-learning and adaptive routing;
-- MANET emulation/testbed/field routing evidence;
-- evaluation/reproducibility studies directly about MANET routing.
+Included evidence comprises foundational routing protocols, MANET routing optimization, QoS/energy/security/trust mechanisms that materially alter routing, adaptive and learning-based MANET routing, emulation/testbed/field evidence, and evaluation or reproducibility studies directly concerned with MANET routing.
 
 ## Adjacent populations
 
-VANET, FANET/UAV, wireless sensor networks, delay-tolerant/opportunistic networks, wireless mesh, IoT, and tactical networks are not automatically pooled with MANET evidence.
+VANET, FANET/UAV, wireless sensor, delay-tolerant/opportunistic, mesh, IoT, and tactical-network studies are not pooled automatically with MANET evidence.
 
-They enter in one of two ways:
+They are retained only as:
 
-**Transfer evidence** — a mechanism is relevant to MANET routing and is clearly tagged as originating outside the primary population.
+- **transfer evidence**, when a mechanism is relevant to MANET routing but originates outside the primary population; or
+- **boundary evidence**, when the adjacent domain identifies a mobility, propagation, deployment, or evaluation issue relevant to MANET evaluation.
 
-**Boundary evidence** — the adjacent domain reveals a mobility, propagation, deployment, or evaluation issue that should be tested in MANETs.
-
-## Why this matters
-
-High mobility in FANETs, road-constrained mobility in VANETs, energy-dominant sensing in WSNs, and store-carry-forward assumptions in DTNs change the routing problem. Treating all ad hoc-network numbers as directly interchangeable would create false completeness.
-
-## Paper presentation
-
-The main taxonomy may show adjacent branches, but quantitative synthesis keeps population labels visible. Controlled Observatory benchmarking is MANET-first unless an adjacent-domain experiment is explicitly designated.
+Population labels remain visible in quantitative synthesis because mobility, propagation, energy, infrastructure, and forwarding assumptions can materially change the routing problem.

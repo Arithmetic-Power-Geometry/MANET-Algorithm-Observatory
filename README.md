@@ -1,64 +1,60 @@
 # MANET Algorithm Observatory
 
-A reproducible research observatory for mapping, comparing, stress-testing, and gap-mining routing algorithms for mobile ad hoc networks (MANETs).
+Reproducible research software and evidence artifacts supporting the study **Evolution and Evidence in MANET Routing: From Classical Protocols to Graph Learning**.
 
-## Research objective
+The repository separates published evidence from controlled evidence and preserves the data structures, benchmark contracts, simulator configuration, validation workflows, and analysis artifacts used to support condition-indexed comparison of MANET routing methods.
 
-The project separates two forms of evidence:
+## Scope
 
-1. **Published evidence** — what the literature claims under its original assumptions and evaluation settings.
-2. **Controlled evidence** — what reproducible algorithms do under a shared experimental contract.
+The evidence architecture covers classical proactive and reactive routing, hybrid and multipath routing, geographic and QoS-aware routing, security and energy-aware methods, metaheuristics, machine learning, reinforcement learning, graph learning, distributed intelligence, deployment evidence, and reproducibility.
 
-The central questions are not only which algorithms perform well, but **under which conditions their advantages hold, where rankings change, which assumptions drive the result, and which parts of the MANET design space remain weakly tested or untested**.
+The literature layer is organized into 31 workstreams under a common extraction framework. Registered studies and deeper structured evidence records are maintained separately from bibliography size so that coverage responsibility, evidence registration, and structured extraction are not conflated.
 
-## Research pipeline
+## Evidence model
 
-```
-Literature corpus
-      ↓
-Evidence extraction
-      ↓
-Protocol / algorithm ontology
-      ↓
-Comparability audit
-      ↓
-Reproducibility audit
-      ↓
-Common benchmark contract
-      ↓
-Controlled experiments
-      ↓
-Failure and ranking frontiers
-      ↓
-Evidence-backed gap map
-      ↓
-Candidate novel algorithm
-      ↓
-Same benchmark + ablation + statistics
-      ↓
-Versioned research artifacts
-```
+Three independent dimensions delimit inference:
 
-## Core protocol families
+- **Verification (V0--V4):** discovery through synthesis/artifact admission.
+- **Comparability (C0--C4):** definition-level evidence through controlled common-contract comparison.
+- **Maturity (E0--E8):** definition through demonstration, comparative simulation, reproducibility, robustness, generalization/stress, testbed, field evidence, and independent replication.
 
-The observatory covers classical proactive/reactive/hybrid and multipath protocols, geographic and opportunistic routing, energy/QoS/security-aware designs, bio-inspired/metaheuristic approaches, and modern ML/RL/DRL/MARL/GNN-based routing.
+These dimensions are evidence descriptors, not protocol-performance scores.
 
-## Evidence rule
+## Controlled benchmark
 
-Reported values from different publications are **not treated as directly comparable unless the relevant experimental conditions are sufficiently aligned**. Literature results and observatory benchmark results remain separate datasets.
+The confirmatory S2 benchmark evaluates AODV, DSDV, the evaluated ns-3 DSR implementation, and OLSRv1 under a common protocol-independent measurement contract in ns-3.47.
 
-## Reproducibility rule
+- 4 protocols
+- 4 pre-specified scenarios
+- 20 predeclared seeds per protocol and scenario
+- 320 validated confirmatory runs
 
-Each controlled result must identify scenario configuration, simulator/software version, algorithm implementation/version, random seed(s), mobility source, propagation/channel configuration, traffic configuration, metrics, and analysis script.
+The benchmark is a bounded classical-protocol bridge. It does not validate the complete taxonomy and does not establish a universal protocol ordering.
 
-## Repository layout
+The primary AODV-versus-DSR result is condition-dependent: BASE, FAST, and LOAD do not provide evidence of a reproducible directional separation, while SCALE yields a paired AODV-minus-DSR packet-delivery-ratio difference of 0.1625 with bootstrap 95% CI [0.0280, 0.2950] and Holm-adjusted Wilcoxon p = 0.0437.
 
-- `review/` systematic-review protocol, research questions, taxonomies, and gap framework
-- `literature/` structured corpus and extracted evidence
-- `agents/` algorithm-family mining specifications
-- `benchmark/` shared scenario and metric contracts
-- `experiments/` reproducible experiment configurations
-- `analysis/` statistical, frontier, sensitivity, and gap-mining analysis
-- `artifacts/` generated figures, tables, timelines, matrices, and machine-readable summaries
+## Repository structure
 
-The repository is research infrastructure. Versioned artifacts are generated from the evidence and experimental workflow.
+- `review/` — review protocol, corpus construction, evidence definitions, and scope controls
+- `literature/` — registered studies, structured evidence, comparability/maturity atlas, contradiction registry, and research obligations
+- `benchmark/` — scenario, metric, provenance, seed, and statistical contracts
+- `sim/ns3/` — ns-3.47 benchmark runner
+- `scripts/` — validation, parsing, summarization, and release-audit utilities
+- `artifacts/` — versioned controlled-analysis outputs
+- `.github/workflows/` — reproducible validation and confirmatory-run workflows
+
+## Reproducibility
+
+Controlled results retain implementation identity, simulator version, scenario parameters, random seed, mobility and channel assumptions, traffic configuration, metric definitions, and analysis provenance. Literature evidence and controlled benchmark evidence remain distinct datasets.
+
+## Cite this work
+
+Akhtar, M. A. K. (2026). *Evolution and Evidence in MANET Routing: From Classical Protocols to Graph Learning* (Version V1). Zenodo. https://doi.org/10.5281/zenodo.23085033
+
+**DOI:** https://doi.org/10.5281/zenodo.23085033
+
+Citation metadata are also provided in [`CITATION.cff`](CITATION.cff).
+
+## Copyright
+
+Copyright © 2026 Mohammad Amir Khusru Akhtar.
