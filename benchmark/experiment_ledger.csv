@@ -1,0 +1,5 @@
+run_group,workflow_run_id,protocol,protocol_id,ns3_version,configure_status,build_status,simulation_status,schema_status,artifact_status,evidence_level,interpretation
+SMOKE-T1-001,36817330816,OLSRv1,1,3.47,PASS,PASS,RUNNING,PENDING,PENDING,engineering,No performance inference permitted
+SMOKE-T1-001,36817330816,AODV,2,3.47,PASS,PASS,RUNNING,PENDING,PENDING,engineering,No performance inference permitted
+SMOKE-T1-001,36817330816,DSDV,3,3.47,PASS,PASS,RUNNING,PENDING,PENDING,engineering,No performance inference permitted
+SMOKE-T1-001,36817330816,DSR,4,3.47,PASS,PASS,RUNNING,PENDING,PENDING,engineering,No performance inference permitted
