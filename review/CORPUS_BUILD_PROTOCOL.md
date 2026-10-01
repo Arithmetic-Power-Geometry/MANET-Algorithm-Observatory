@@ -4,44 +4,25 @@
 Primary specifications and foundational papers define mechanisms.
 
 ## Stage B — Closest reviews
-Recent surveys/systematic reviews establish:
-- what has already been synthesized;
-- terminology;
-- candidate primary studies;
-- unresolved evaluation issues;
-- non-redundancy obligations.
+Recent surveys and systematic reviews establish terminology, candidate primary studies, previously synthesized material, and unresolved evaluation issues.
 
 ## Stage C — Primary-study expansion
-For each family agent:
-1. mine primary studies cited by closest reviews;
-2. search forward for newer work;
-3. search backward for defining work;
-4. verify bibliographic identity;
-5. classify scope;
-6. extract evidence only after primary text verification.
+Primary-study coverage is expanded by backward citation tracing, forward mechanism tracing, and verification of newer representative work.
 
 ## Stage D — Implementation evidence
-Search official/research repositories and simulator documentation separately from publication claims.
+Official repositories, research implementations, and simulator documentation are inspected separately from publication claims.
 
-## Stage E — Saturation
-A family is not marked corpus-complete until:
-- defining works are present;
-- major mechanism variants are present;
-- recent representative work is present;
-- strongest reproducible implementations are assessed;
-- contradictory/negative evidence has been actively searched;
-- adjacent-domain transfer evidence has been considered and tagged.
+## Stage E — Conceptual saturation
+A routing family is treated as represented for synthesis when its defining mechanism, major variants, recent representative work, contradictory or negative evidence, and relevant adjacent-domain transfer evidence have been considered. Search continues when new sources reveal an unrepresented decision mechanism, information scope, temporal mode, deployment regime, or materially conflicting result, and stops when additional sources repeat already represented mechanism classes without changing the synthesis.
 
-## Deduplication key
+## Deduplication
+DOI or RFC is preferred for identity resolution. Otherwise, normalized title, publication year, and first author are used. Preprints and final publications are linked rather than counted as independent evidence unless materially different experiments are reported.
 
-Prefer DOI/RFC. Otherwise normalize title + year + first author. Preprint and final publication are linked, not counted as independent evidence unless they contain materially different experiments.
+## Verification states
+- **V0** — discovery
+- **V1** — bibliographic verification
+- **V2** — cited-role verification
+- **V3** — structured evidence extraction
+- **V4** — synthesis or artifact admission
 
-## Verification
-
-V0 discovered
-V1 metadata checked
-V2 source checked for the cited role
-V3 structured evidence extracted
-V4 used in synthesis/artifact
-
-A V0/V1 source can populate discovery maps but cannot support substantive conclusions.
+V0/V1 records can support discovery and corpus navigation but do not support substantive conclusions.
