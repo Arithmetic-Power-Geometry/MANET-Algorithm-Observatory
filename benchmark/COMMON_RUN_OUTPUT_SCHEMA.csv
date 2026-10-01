@@ -1,0 +1,23 @@
+field,type,unit,required,scope,definition
+benchmark_version,string,,yes,run,Frozen Observatory benchmark version
+observatory_commit,string,,yes,run,Exact source commit
+ns3_version,string,,yes,run,Exact ns-3 release
+protocol,string,,yes,run,Evaluated implementation label
+scenario_id,string,,yes,run,Frozen scenario identifier
+seed,integer,,yes,run,ns-3 seed
+run_number,integer,,yes,run,ns-3 run number
+measurement_start_s,float,s,yes,run,Start of admitted measurement interval
+measurement_end_s,float,s,yes,run,End of admitted measurement interval
+app_packets_sent,integer,packets,yes,run,Application packets emitted within accounting boundary
+app_packets_received,integer,packets,yes,run,Application packets delivered within same accounting boundary
+app_payload_bytes_sent,integer,bytes,yes,run,Application payload bytes emitted
+app_payload_bytes_received,integer,bytes,yes,run,Application payload bytes delivered
+pdr,float,ratio,yes,derived,app_packets_received/app_packets_sent when sent > 0
+goodput_bps,float,bits/s,yes,derived,8*app_payload_bytes_received/measurement_duration
+mean_delay_ms,float,ms,conditional,derived,Mean matched-packet application end-to-end delay
+median_delay_ms,float,ms,conditional,derived,Median matched-packet application end-to-end delay
+p95_delay_ms,float,ms,conditional,derived,95th percentile matched-packet application end-to-end delay
+mean_jitter_ms,float,ms,conditional,derived,Frozen inter-packet delay-variation estimator
+matched_packets,integer,packets,yes,run,Packets with validated send/receive identity
+exit_status,integer,,yes,provenance,Simulation process exit status
+validity_status,string,,yes,provenance,PASS or explicit invalid reason
