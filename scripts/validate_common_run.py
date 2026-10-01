@@ -13,6 +13,7 @@ assert x["mobility_model"]=="RandomWaypoint"
 assert x["traffic_model"]=="UDP-periodic"
 tx=int(x["app_packets_sent"]); rx=int(x["app_packets_received"]); matched=int(x["matched_packets"])
 pdr=float(x["pdr"]); goodput=float(x["goodput_bps"])
+print("COMMON_RUNNER_DIAGNOSTIC",x["protocol"],"tx",tx,"rx",rx,"matched",matched,"pdr",pdr,"goodput_bps",goodput,flush=True)
 assert tx>0 and 0<=rx<=tx
 assert matched==rx
 assert 0<=pdr<=1 and abs(pdr-rx/tx)<1e-9
