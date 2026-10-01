@@ -154,6 +154,6 @@ int main(int argc,char** argv)
   if(gDelaysMs.size()>1){ double s=0; for(size_t i=1;i<gDelaysMs.size();++i)s+=std::abs(gDelaysMs[i]-gDelaysMs[i-1]); jitter=s/(gDelaysMs.size()-1); }
 
   std::ofstream o(output);
-  o<<"benchmark_version,ns3_version,protocol,scenario_id,seed,run_number,measurement_start_s,measurement_end_s,app_packets_sent,app_packets_received,app_payload_bytes_sent,app_payload_bytes_received,pdr,goodput_bps,mean_delay_ms,median_delay_ms,p95_delay_ms,mean_jitter_ms,matched_packets,exit_status,validity_status\n";
+  o<<"benchmark_version,ns3_version,protocol,scenario_id,seed,run_number,node_count,area_width_m,area_height_m,mobility_model,max_speed_mps,traffic_model,packet_rate_pps,payload_bytes,measurement_start_s,measurement_end_s,app_packets_sent,app_packets_received,app_payload_bytes_sent,app_payload_bytes_received,pdr,goodput_bps,mean_delay_ms,median_delay_ms,p95_delay_ms,mean_jitter_ms,matched_packets,exit_status,validity_status\n";
   o<<std::setprecision(12)<<"engineering-v0,3.47,"<<protocol<<","<<scenario<<","<<seed<<","<<run<<","<<nodes<<",500,500,RandomWaypoint,"<<speed<<",UDP-periodic,"<<ratePps<<","<<payload<<","<<start<<","<<simTime<<","<<gTxPackets<<","<<gRxPackets<<","<<gTxBytes<<","<<gRxBytes<<","<<pdr<<","<<goodput<<","<<mean<<","<<median<<","<<p95<<","<<jitter<<","<<gDelaysMs.size()<<",0,PASS\n";
 }
