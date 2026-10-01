@@ -7,3 +7,7 @@ SMOKE-T1-002,36818359200,OLSRv1,OLSR,3.47,PASS,PASS,PASS,PASS,PASS,engineering,V
 SMOKE-T1-002,36818359200,AODV,AODV,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Validated canonical smoke execution; no confirmatory performance inference
 SMOKE-T1-002,36818359200,DSDV,DSDV,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Validated canonical smoke execution; no confirmatory performance inference
 SMOKE-T1-002,36818359200,DSR,DSR,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Validated canonical smoke execution; no confirmatory performance inference
+COMMON-ENG-001,36822659556,OLSRv1,OLSR,3.47,PASS,PASS,FAIL,PENDING,PENDING,invalidated,Receiver accounting invariant failed because received exceeded transmitted; measurement-layer issue; no performance inference
+COMMON-ENG-001,36822659556,AODV,AODV,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Common runner API-fix lineage passed but superseded by scenario-provenance and accounting revisions
+COMMON-ENG-001,36822659556,DSDV,DSDV,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Common runner API-fix lineage passed but superseded by scenario-provenance and accounting revisions
+COMMON-ENG-001,36822659556,DSR,DSR,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Common runner API-fix lineage passed but superseded by scenario-provenance and accounting revisions
