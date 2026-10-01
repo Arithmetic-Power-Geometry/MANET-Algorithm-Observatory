@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this repository, please cite the work below."
+title: "Evolution and Evidence in MANET Routing: From Classical Protocols to Graph Learning"
+version: "V1"
+type: software
+authors:
+  - family-names: "Akhtar"
+    given-names: "Mohammad Amir Khusru"
+    alias: "M. A. K. Akhtar"
+repository-code: "https://github.com/Arithmetic-Power-Geometry/MANET-Algorithm-Observatory"
+doi: "10.5281/zenodo.23085033"
+date-released: "2026"
+license: "Other"
+preferred-citation:
+  type: article
+  title: "Evolution and Evidence in MANET Routing: From Classical Protocols to Graph Learning"
+  authors:
+    - family-names: "Akhtar"
+      given-names: "Mohammad Amir Khusru"
+  year: 2026
+  doi: "10.5281/zenodo.23085033"
