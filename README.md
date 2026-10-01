@@ -47,9 +47,13 @@ The primary AODV-versus-DSR result is condition-dependent: BASE, FAST, and LOAD 
 
 Controlled results retain implementation identity, simulator version, scenario parameters, random seed, mobility and channel assumptions, traffic configuration, metric definitions, and analysis provenance. Literature evidence and controlled benchmark evidence remain distinct datasets.
 
-## Citation
+## Cite this work
 
 Akhtar, M. A. K. (2026). *Evolution and Evidence in MANET Routing: From Classical Protocols to Graph Learning* (Version V1). Zenodo. https://doi.org/10.5281/zenodo.23085033
+
+**DOI:** https://doi.org/10.5281/zenodo.23085033
+
+Citation metadata are also provided in [`CITATION.cff`](CITATION.cff).
 
 ## Copyright
 
