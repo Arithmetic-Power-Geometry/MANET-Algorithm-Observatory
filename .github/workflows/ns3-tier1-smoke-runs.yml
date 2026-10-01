@@ -1,0 +1,73 @@
+name: ns3 tier1 canonical smoke runs
+
+on:
+  workflow_dispatch:
+
+jobs:
+  smoke:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        protocol: [AODV, DSDV, DSR, OLSR]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout ns-3.47
+        uses: actions/checkout@v4
+        with:
+          repository: nsnam/ns-3-dev-git
+          ref: ns-3.47
+          path: ns-3.47
+
+      - name: Configure ns-3
+        working-directory: ns-3.47
+        run: ./ns3 configure --build-profile=release --enable-examples
+
+      - name: Build MANET example
+        working-directory: ns-3.47
+        run: ./ns3 build manet-routing-compare
+
+      - name: Execute canonical smoke run
+        working-directory: ns-3.47
+        run: |
+          mkdir -p ../artifacts/raw
+          ./ns3 run "manet-routing-compare --protocol=${{ matrix.protocol }} --traceMobility=0 --CSVfileName=../artifacts/raw/${{ matrix.protocol }}.csv" > ../artifacts/raw/${{ matrix.protocol }}.log 2>&1
+          test -s ../artifacts/raw/${{ matrix.protocol }}.csv
+
+      - name: Validate upstream output schema
+        run: |
+          python - <<'PY'
+          import csv, pathlib
+          p=pathlib.Path("artifacts/raw/${{ matrix.protocol }}.csv")
+          rows=list(csv.reader(p.open()))
+          expected=["SimulationSecond","ReceiveRate","PacketsReceived","NumberOfSinks","RoutingProtocol","TransmissionPower"]
+          assert rows and rows[0]==expected, (rows[0] if rows else None)
+          assert len(rows)>1
+          print("SMOKE_SCHEMA=PASS", p, len(rows)-1)
+          PY
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tier1-${{ matrix.protocol }}
+          path: |
+            artifacts/raw/${{ matrix.protocol }}.csv
+            artifacts/raw/${{ matrix.protocol }}.log
+          if-no-files-found: error
+
+  compare:
+    needs: smoke
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: tier1-*
+          path: artifacts/downloaded
+      - name: Build smoke comparison summary
+        run: python scripts/summarize_canonical_smoke.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tier1-smoke-summary
+          path: artifacts/generated/tier1_smoke_summary.csv
