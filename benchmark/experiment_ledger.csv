@@ -1,5 +1,9 @@
-run_group,workflow_run_id,protocol,protocol_id,ns3_version,configure_status,build_status,simulation_status,schema_status,artifact_status,evidence_level,interpretation
-SMOKE-T1-001,36817330816,OLSRv1,1,3.47,PASS,PASS,RUNNING,PENDING,PENDING,engineering,No performance inference permitted
-SMOKE-T1-001,36817330816,AODV,2,3.47,PASS,PASS,RUNNING,PENDING,PENDING,engineering,No performance inference permitted
-SMOKE-T1-001,36817330816,DSDV,3,3.47,PASS,PASS,RUNNING,PENDING,PENDING,engineering,No performance inference permitted
-SMOKE-T1-001,36817330816,DSR,4,3.47,PASS,PASS,RUNNING,PENDING,PENDING,engineering,No performance inference permitted
+run_group,workflow_run_id,protocol,protocol_selector,ns3_version,configure_status,build_status,simulation_status,schema_status,artifact_status,evidence_level,interpretation
+SMOKE-T1-001,36817330816,OLSRv1,1,3.47,PASS,PASS,SUPERSEDED,PENDING,PENDING,invalidated,Protocol selector derived from older ns-3 interface; not admissible evidence
+SMOKE-T1-001,36817330816,AODV,2,3.47,PASS,PASS,SUPERSEDED,PENDING,PENDING,invalidated,Protocol selector derived from older ns-3 interface; not admissible evidence
+SMOKE-T1-001,36817330816,DSDV,3,3.47,PASS,PASS,SUPERSEDED,PENDING,PENDING,invalidated,Protocol selector derived from older ns-3 interface; not admissible evidence
+SMOKE-T1-001,36817330816,DSR,4,3.47,PASS,PASS,SUPERSEDED,PENDING,PENDING,invalidated,Protocol selector derived from older ns-3 interface; not admissible evidence
+SMOKE-T1-002,pending,OLSRv1,OLSR,3.47,PENDING,PENDING,PENDING,PENDING,PENDING,engineering,CLI contract verified against frozen ns-3.47 source before execution
+SMOKE-T1-002,pending,AODV,AODV,3.47,PENDING,PENDING,PENDING,PENDING,PENDING,engineering,CLI contract verified against frozen ns-3.47 source before execution
+SMOKE-T1-002,pending,DSDV,DSDV,3.47,PENDING,PENDING,PENDING,PENDING,PENDING,engineering,CLI contract verified against frozen ns-3.47 source before execution
+SMOKE-T1-002,pending,DSR,DSR,3.47,PENDING,PENDING,PENDING,PENDING,PENDING,engineering,CLI contract verified against frozen ns-3.47 source before execution
