@@ -1,0 +1,26 @@
+name: Benchmark preflight
+
+on:
+  push:
+    paths:
+      - "benchmark/SMOKE_TEST_CONTRACT.md"
+      - "benchmark/smoke_test_status.csv"
+      - "benchmark/EXPERIMENT_RECORD_SCHEMA.csv"
+      - "scripts/preflight_benchmark.py"
+      - ".github/workflows/benchmark-preflight.yml"
+  pull_request:
+    paths:
+      - "benchmark/**"
+      - "scripts/preflight_benchmark.py"
+  workflow_dispatch:
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate Tier-1 benchmark readiness
+        run: python scripts/preflight_benchmark.py
