@@ -113,11 +113,11 @@ static double Percentile(std::vector<double> v,double q)
 
 int main(int argc,char** argv)
 {
-  std::string protocol="AODV", output="observatory-run.csv", scenario="engineering-common-001";
+  std::string protocol="AODV", output="observatory-run.csv", scenario="engineering-common-001", observatoryCommit="unknown";
   uint32_t nodes=25, payload=512; double simTime=60.0, start=10.0, ratePps=2.0, speed=5.0; uint32_t seed=12345, run=1;
   CommandLine cmd(__FILE__);
   cmd.AddValue("protocol","AODV, DSDV, DSR, or OLSR",protocol);
-  cmd.AddValue("output","Output CSV",output); cmd.AddValue("scenario","Scenario ID",scenario);
+  cmd.AddValue("output","Output CSV",output); cmd.AddValue("scenario","Scenario ID",scenario); cmd.AddValue("observatoryCommit","Exact Observatory source commit",observatoryCommit);
   cmd.AddValue("nodes","Node count",nodes); cmd.AddValue("payload","Application payload bytes",payload);
   cmd.AddValue("simTime","Simulation seconds",simTime); cmd.AddValue("start","Measurement/application start",start);
   cmd.AddValue("ratePps","Packets per second",ratePps); cmd.AddValue("speed","RandomWaypoint max speed m/s",speed);
@@ -161,6 +161,6 @@ int main(int argc,char** argv)
   if(gDelaysMs.size()>1){ double s=0; for(size_t i=1;i<gDelaysMs.size();++i)s+=std::abs(gDelaysMs[i]-gDelaysMs[i-1]); jitter=s/(gDelaysMs.size()-1); }
 
   std::ofstream o(output);
-  o<<"benchmark_version,ns3_version,protocol,scenario_id,seed,run_number,node_count,area_width_m,area_height_m,mobility_model,max_speed_mps,traffic_model,packet_rate_pps,payload_bytes,measurement_start_s,measurement_end_s,socket_bind_status,tx_attempts,tx_rejected,socket_accepted_packets,app_packets_sent,app_packets_received,app_payload_bytes_sent,app_payload_bytes_received,pdr,goodput_bps,mean_delay_ms,median_delay_ms,p95_delay_ms,mean_jitter_ms,matched_packets,exit_status,validity_status\n";
-  o<<std::setprecision(12)<<"engineering-v0,3.47,"<<protocol<<","<<scenario<<","<<seed<<","<<run<<","<<nodes<<",500,500,RandomWaypoint,"<<speed<<",UDP-periodic,"<<ratePps<<","<<payload<<","<<start<<","<<simTime<<","<<gBindStatus<<","<<gTxAttempts<<","<<gTxRejected<<","<<gTxAccepted<<","<<gTxAttempts<<","<<gRxPackets<<","<<gOfferedBytes<<","<<gRxBytes<<","<<pdr<<","<<goodput<<","<<mean<<","<<median<<","<<p95<<","<<jitter<<","<<gDelaysMs.size()<<",0,PASS\n";
+  o<<"benchmark_version,observatory_commit,ns3_version,protocol,scenario_id,seed,run_number,node_count,area_width_m,area_height_m,mobility_model,max_speed_mps,traffic_model,packet_rate_pps,payload_bytes,measurement_start_s,measurement_end_s,socket_bind_status,tx_attempts,tx_rejected,socket_accepted_packets,app_packets_sent,app_packets_received,app_payload_bytes_sent,app_payload_bytes_received,pdr,goodput_bps,mean_delay_ms,median_delay_ms,p95_delay_ms,mean_jitter_ms,matched_packets,exit_status,validity_status\n";
+  o<<std::setprecision(12)<<"engineering-v0,"<<observatoryCommit<<",3.47,"<<protocol<<","<<scenario<<","<<seed<<","<<run<<","<<nodes<<",500,500,RandomWaypoint,"<<speed<<",UDP-periodic,"<<ratePps<<","<<payload<<","<<start<<","<<simTime<<","<<gBindStatus<<","<<gTxAttempts<<","<<gTxRejected<<","<<gTxAccepted<<","<<gTxAttempts<<","<<gRxPackets<<","<<gOfferedBytes<<","<<gRxBytes<<","<<pdr<<","<<goodput<<","<<mean<<","<<median<<","<<p95<<","<<jitter<<","<<gDelaysMs.size()<<",0,PASS\n";
 }
