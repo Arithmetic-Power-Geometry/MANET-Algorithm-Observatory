@@ -1,0 +1,5 @@
+set_id,purpose,status,seed_source,replication_count,seed_list,freeze_rule
+S0,engineering smoke,active,fixed engineering seed,1,12345,not inferential
+S1,pilot variability,pending,predeclared deterministic list,TBD,TBD,freeze before pilot execution
+S2,confirmatory inference,pending,predeclared deterministic list,TBD,TBD,derive count from precision/pilot before viewing confirmatory effects
+S3,held-out robustness,pending,disjoint predeclared deterministic list,TBD,TBD,must not overlap S2
