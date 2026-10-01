@@ -1,0 +1,28 @@
+name: Corpus validation
+
+on:
+  push:
+    paths:
+      - 'literature/master_studies.csv'
+      - 'literature/closest_reviews.csv'
+      - 'literature/corpus_progress.csv'
+      - 'scripts/corpus_status.py'
+      - '.github/workflows/corpus-validation.yml'
+  pull_request:
+    paths:
+      - 'literature/**'
+      - 'scripts/corpus_status.py'
+  workflow_dispatch:
+
+jobs:
+  validate-corpus:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate corpus and generate status preview
+        run: python scripts/corpus_status.py
+      - name: Show status
+        run: cat artifacts/generated/corpus_status.md
