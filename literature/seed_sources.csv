@@ -1,0 +1,11 @@
+source_id,source_type,year,title,protocols_or_scope,role,identifier_or_url,admission_note
+S001,original paper,1994,Highly dynamic Destination-Sequenced Distance-Vector routing (DSDV) for mobile computers,DSDV,foundational mechanism,10.1145/190809.190336,Primary source for DSDV mechanism
+S002,RFC,2003,Ad hoc On-Demand Distance Vector (AODV) Routing,AODV,protocol specification,10.17487/RFC3561,Experimental RFC and primary protocol specification
+S003,RFC,2003,Optimized Link State Routing Protocol (OLSR),OLSR,protocol specification,10.17487/RFC3626,Experimental RFC and primary protocol specification
+S004,RFC,2007,The Dynamic Source Routing Protocol (DSR) for Mobile Ad Hoc Networks for IPv4,DSR,protocol specification,10.17487/RFC4728,Experimental RFC and primary protocol specification
+S005,IETF draft,2002,The Zone Routing Protocol (ZRP) for Ad Hoc Networks,ZRP,framework specification,draft-ietf-manet-zone-zrp-04,Expired draft retained as historical primary source
+S006,IETF draft,2001,Temporally-Ordered Routing Algorithm (TORA) Version 1,TORA,functional specification,draft-ietf-manet-tora-spec-04,Expired draft retained as historical primary source
+S007,peer-reviewed paper,2006,Ad hoc on-demand multipath distance vector routing,AOMDV,foundational mechanism and evaluation,10.1002/wcm.432,Primary AOMDV source
+S008,RFC,2014,The Optimized Link State Routing Protocol Version 2,OLSRv2,protocol specification,10.17487/RFC7181,Standards-track specification
+S009,RFC,2021,The Babel Routing Protocol,Babel,protocol specification,10.17487/RFC8966,Standards-track specification
+S010,peer-reviewed paper,2026,Inappropriate propagation model selection in ad hoc networks routing studies,AODV;OLSR;DSDV,evaluation-validity evidence,10.1016/j.adhoc.2026.104417,Seed evidence for propagation-induced ranking instability
