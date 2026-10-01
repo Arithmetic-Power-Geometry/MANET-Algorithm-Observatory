@@ -1,0 +1,43 @@
+name: ns3 common runner validation
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "sim/ns3/observatory_tier1_runner.cc"
+      - ".github/workflows/ns3-common-runner.yml"
+
+jobs:
+  common-runner:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        protocol: [AODV, DSDV, DSR, OLSR]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout ns-3.47
+        uses: actions/checkout@v4
+        with:
+          repository: nsnam/ns-3-dev-git
+          ref: ns-3.47
+          path: ns-3.47
+      - name: Install Observatory runner
+        run: cp sim/ns3/observatory_tier1_runner.cc ns-3.47/scratch/observatory-tier1.cc
+      - name: Configure ns-3
+        working-directory: ns-3.47
+        run: ./ns3 configure --build-profile=release
+      - name: Build runner
+        working-directory: ns-3.47
+        run: ./ns3 build scratch/observatory-tier1
+      - name: Execute common engineering scenario
+        working-directory: ns-3.47
+        run: mkdir -p ../artifacts/common && ./ns3 run "scratch/observatory-tier1 --protocol=${{ matrix.protocol }} --output=../artifacts/common/${{ matrix.protocol }}.csv --scenario=engineering-common-001 --nodes=25 --simTime=60 --start=10 --ratePps=2 --speed=5 --seed=12345 --run=1"
+      - name: Validate common metrics
+        run: python scripts/validate_common_run.py "artifacts/common/${{ matrix.protocol }}.csv"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: common-${{ matrix.protocol }}
+          path: artifacts/common/${{ matrix.protocol }}.csv
+          if-no-files-found: error
