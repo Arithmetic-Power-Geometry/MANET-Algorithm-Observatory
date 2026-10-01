@@ -1,0 +1,23 @@
+field,description
+analysis_id,unique analysis identifier
+benchmark_version,frozen benchmark version
+scenario_id,condition identifier
+protocol,evaluated implementation label
+metric,metric identifier
+n_valid,valid independent replications
+center_estimate,reported central estimate
+center_type,mean or median or other justified estimator
+dispersion_estimate,reported dispersion
+dispersion_type,SD IQR or other
+ci_low,lower uncertainty bound
+ci_high,upper uncertainty bound
+comparator,comparison protocol when applicable
+absolute_effect,absolute protocol difference
+relative_effect,relative effect when meaningful
+effect_size,effect size when applicable
+test_method,inferential method when applicable
+p_value,p value when applicable
+multiplicity_method,multiple-comparison control when applicable
+condition_interpretation,condition-bound interpretation
+artifact_source,raw/processed provenance path
+analysis_commit,analysis code commit
