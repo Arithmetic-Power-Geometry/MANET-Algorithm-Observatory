@@ -33,7 +33,7 @@ jobs:
             (cd ns-3.47 && ./ns3 run "scratch/observatory-tier1 --protocol=$p --output=../artifacts/prepaper/sanity/$p.csv --scenario=connected-sanity-001 --observatoryCommit=${GITHUB_SHA} --nodes=25 --area=100 --staticGrid=1 --simTime=60 --start=10 --ratePps=2 --speed=0 --seed=12345 --run=1")
             python scripts/validate_common_run.py "artifacts/prepaper/sanity/$p.csv"
           done
-          tail -n +2 benchmark/S1_PILOT_SEEDS.csv | while IFS=, read -r seed run_number purpose status; do
+          tail -n +2 benchmark/S1_PILOT_SEEDS.csv | while IFS=, read -r seed_set seed run_number purpose status; do
             [[ -z "$seed" ]] && continue
             for p in "${protocols[@]}"; do
               out="artifacts/prepaper/s1/${p}_seed${seed}.csv"
