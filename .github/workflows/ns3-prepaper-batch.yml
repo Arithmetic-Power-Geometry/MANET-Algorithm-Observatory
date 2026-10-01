@@ -1,0 +1,73 @@
+name: ns3 pre-paper batch
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pre-paper-batch:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: nsnam/ns-3-dev-git
+          ref: ns-3.47
+          path: ns-3.47
+      - name: Install and build once
+        run: |
+          cp sim/ns3/observatory_tier1_runner.cc ns-3.47/scratch/observatory-tier1.cc
+          cd ns-3.47
+          ./ns3 configure --build-profile=release
+          ./ns3 build scratch/observatory-tier1
+      - name: Connected sanity and S1 pilot
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/prepaper/sanity artifacts/prepaper/s1
+          protocols=(AODV DSDV DSR OLSR)
+          for p in "${protocols[@]}"; do
+            (cd ns-3.47 && ./ns3 run "scratch/observatory-tier1 --protocol=$p --output=../artifacts/prepaper/sanity/$p.csv --scenario=connected-sanity-001 --observatoryCommit=${GITHUB_SHA} --nodes=25 --area=100 --staticGrid=1 --simTime=60 --start=10 --ratePps=2 --speed=0 --seed=12345 --run=1")
+            python scripts/validate_common_run.py "artifacts/prepaper/sanity/$p.csv"
+          done
+          tail -n +2 benchmark/S1_PILOT_SEEDS.csv | while IFS=, read -r seed run_number purpose status; do
+            [[ -z "$seed" ]] && continue
+            for p in "${protocols[@]}"; do
+              out="artifacts/prepaper/s1/${p}_seed${seed}.csv"
+              (cd ns-3.47 && ./ns3 run "scratch/observatory-tier1 --protocol=$p --output=../$out --scenario=s1-base-001 --observatoryCommit=${GITHUB_SHA} --nodes=25 --area=250 --simTime=60 --start=10 --ratePps=2 --speed=5 --seed=$seed --run=$run_number")
+              python scripts/validate_common_run.py "$out"
+            done
+          done
+      - name: Aggregate batch
+        run: |
+          python - <<'PY'
+          import csv,glob,os
+          files=sorted(glob.glob("artifacts/prepaper/sanity/*.csv")+glob.glob("artifacts/prepaper/s1/*.csv"))
+          rows=[]
+          for f in files:
+              with open(f,newline="") as h:
+                  r=next(csv.DictReader(h)); r["artifact_path"]=f; rows.append(r)
+          fields=list(rows[0])+["artifact_path"]
+          with open("artifacts/prepaper/prepaper_batch.csv","w",newline="") as h:
+              w=csv.DictWriter(h,fieldnames=fields); w.writeheader(); w.writerows(rows)
+          with open("artifacts/prepaper/summary.md","w") as h:
+              h.write("# Pre-paper batch summary\n\n")
+              h.write(f"Validated raw runs: {len(rows)}\n\n")
+              for scope in ("connected-sanity-001","s1-base-001"):
+                  ss=[r for r in rows if r["scenario_id"]==scope]
+                  h.write(f"## {scope}\n\n")
+                  for p in ("AODV","DSDV","DSR","OLSR"):
+                      q=[r for r in ss if r["protocol"]==p]
+                      if q:
+                          mean=sum(float(r["pdr"]) for r in q)/len(q)
+                          delivered=sum(int(r["app_packets_received"]) for r in q)
+                          h.write(f"- {p}: n={len(q)}, mean diagnostic PDR={mean:.6f}, total delivered={delivered}\n")
+                  h.write("\n")
+              h.write("S1 is pilot evidence only; no superiority inference is admitted.\n")
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pre-paper-batch
+          path: artifacts/prepaper
+          if-no-files-found: error
