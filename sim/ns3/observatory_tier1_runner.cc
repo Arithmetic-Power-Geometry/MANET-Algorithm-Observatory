@@ -20,6 +20,7 @@
 #include <fstream>
 #include <iomanip>
 #include <numeric>
+#include <unordered_set>
 #include <string>
 #include <vector>
 
@@ -29,25 +30,28 @@ NS_LOG_COMPONENT_DEFINE("ObservatoryTier1Runner");
 
 static uint64_t gTxPackets=0, gRxPackets=0, gTxBytes=0, gRxBytes=0;
 static std::vector<double> gDelaysMs;
+static std::unordered_set<uint32_t> gSeenSeq;
 
 class ObservatoryHeader : public Header
 {
 public:
   ObservatoryHeader() = default;
-  ObservatoryHeader(uint32_t seq, uint64_t txNs) : mSeq(seq), mTxNs(txNs) {}
+  ObservatoryHeader(uint32_t seq, uint64_t txNs) : mMagic(0x4D414E45), mSeq(seq), mTxNs(txNs) {}
   static TypeId GetTypeId()
   {
     static TypeId tid=TypeId("ObservatoryHeader").SetParent<Header>().AddConstructor<ObservatoryHeader>();
     return tid;
   }
   TypeId GetInstanceTypeId() const override { return GetTypeId(); }
-  uint32_t GetSerializedSize() const override { return 12; }
-  void Serialize(Buffer::Iterator i) const override { i.WriteHtonU32(mSeq); i.WriteHtonU64(mTxNs); }
-  uint32_t Deserialize(Buffer::Iterator i) override { mSeq=i.ReadNtohU32(); mTxNs=i.ReadNtohU64(); return 12; }
+  uint32_t GetSerializedSize() const override { return 16; }
+  void Serialize(Buffer::Iterator i) const override { i.WriteHtonU32(mMagic); i.WriteHtonU32(mSeq); i.WriteHtonU64(mTxNs); }
+  uint32_t Deserialize(Buffer::Iterator i) override { mMagic=i.ReadNtohU32(); mSeq=i.ReadNtohU32(); mTxNs=i.ReadNtohU64(); return 16; }
   void Print(std::ostream& os) const override { os<<"seq="<<mSeq; }
   uint64_t GetTxNs() const { return mTxNs; }
+  uint32_t GetSeq() const { return mSeq; }
+  bool IsValid() const { return mMagic==0x4D414E45; }
 private:
-  uint32_t mSeq=0;
+  uint32_t mMagic=0; uint32_t mSeq=0;
   uint64_t mTxNs=0;
 };
 
@@ -82,7 +86,8 @@ static void Receive(Ptr<Socket> socket)
   while(auto p=socket->RecvFrom(from))
   {
     ObservatoryHeader h;
-    if(p->RemoveHeader(h)!=12) continue;
+    if(p->RemoveHeader(h)!=16 || !h.IsValid()) continue;
+    if(!gSeenSeq.insert(h.GetSeq()).second) continue;
     ++gRxPackets;
     gRxBytes+=p->GetSize();
     double d=(Simulator::Now().GetNanoSeconds()-h.GetTxNs())/1e6;
