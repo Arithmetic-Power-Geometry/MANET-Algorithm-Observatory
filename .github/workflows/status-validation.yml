@@ -1,0 +1,24 @@
+name: Status atlas validation
+
+on:
+  push:
+    paths:
+      - "literature/complete_status.csv"
+      - "literature/classical_spine.csv"
+      - "scripts/validate_status.py"
+      - ".github/workflows/status-validation.yml"
+  pull_request:
+    paths:
+      - "literature/complete_status.csv"
+      - "literature/classical_spine.csv"
+      - "scripts/validate_status.py"
+
+jobs:
+  validate-status:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python scripts/validate_status.py
