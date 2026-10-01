@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 import csv, math, sys
 p=sys.argv[1]
-r=list(csv.DictReader(open(p,newline="",encoding="utf-8")))
+with open(p,newline="",encoding="utf-8") as fh:
+    reader=csv.DictReader(fh)
+    r=list(reader)
 assert len(r)==1
 x=r[0]
+assert None not in x, "data row has more columns than header"
+required={"node_count","area_width_m","area_height_m","mobility_model","max_speed_mps","traffic_model","packet_rate_pps","payload_bytes","app_packets_sent","app_packets_received"}
+assert required.issubset(x), f"schema missing: {required-set(x)}"
+assert x["mobility_model"]=="RandomWaypoint"
+assert x["traffic_model"]=="UDP-periodic"
 tx=int(x["app_packets_sent"]); rx=int(x["app_packets_received"]); matched=int(x["matched_packets"])
 pdr=float(x["pdr"]); goodput=float(x["goodput_bps"])
 assert tx>0 and 0<=rx<=tx
