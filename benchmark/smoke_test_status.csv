@@ -1,0 +1,5 @@
+protocol,build,run,common_metrics,control_metrics,seed_replay,provenance,limitations_recorded,overall,status_note
+AODV,pending,pending,pending,pending,pending,pass,pending,blocked,Official ns-3 implementation provenance verified
+DSDV,pending,pending,pending,pending,pending,pass,pending,blocked,Official ns-3 implementation provenance verified
+DSR,pending,pending,pending,pending,pending,pass,pending,blocked,Measurement path requires explicit validation
+OLSRv1,pending,pending,pending,pending,pending,pass,pending,blocked,Must remain labeled OLSRv1 not OLSRv2
