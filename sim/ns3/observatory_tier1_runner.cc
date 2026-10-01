@@ -28,7 +28,7 @@ using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE("ObservatoryTier1Runner");
 
-static uint64_t gTxAttempts=0, gTxRejected=0, gTxPackets=0, gRxPackets=0, gTxBytes=0, gRxBytes=0;
+static uint64_t gTxAttempts=0, gTxRejected=0, gTxAccepted=0, gRxPackets=0, gOfferedBytes=0, gRxBytes=0;
 static int gBindStatus=-999;
 static std::vector<double> gDelaysMs;
 static std::unordered_set<uint64_t> gSeenPacketId;
@@ -79,7 +79,8 @@ private:
     ObservatoryHeader h(mSourceId, mSeq++, static_cast<uint64_t>(Simulator::Now().GetNanoSeconds()));
     p->AddHeader(h);
     ++gTxAttempts;
-    if(mSocket->SendTo(p,0,mPeer)>=0){ ++gTxPackets; gTxBytes+=mPayload; } else { ++gTxRejected; }
+    gOfferedBytes+=mPayload;
+    if(mSocket->SendTo(p,0,mPeer)>=0){ ++gTxAccepted; } else { ++gTxRejected; }
     mEvent=Simulator::Schedule(mInterval,&Sender::Send,this);
   }
   Ptr<Socket> mSocket; Address mPeer; uint32_t mPayload=512, mSourceId=0, mSeq=0; Time mInterval=Seconds(1),mStop=Seconds(0); EventId mEvent;
@@ -154,12 +155,12 @@ int main(int argc,char** argv)
   n.Get(0)->AddApplication(sender); sender->SetStartTime(Seconds(start)); sender->SetStopTime(Seconds(simTime));
   Simulator::Stop(Seconds(simTime)); Simulator::Run(); Simulator::Destroy();
 
-  double T=simTime-start, pdr=gTxPackets?double(gRxPackets)/gTxPackets:NAN, goodput=T>0?8.0*gRxBytes/T:NAN;
+  double T=simTime-start, pdr=gTxAttempts?double(gRxPackets)/gTxAttempts:NAN, goodput=T>0?8.0*gRxBytes/T:NAN;
   double mean=NAN,median=NAN,p95=NAN,jitter=NAN;
   if(!gDelaysMs.empty()){ mean=std::accumulate(gDelaysMs.begin(),gDelaysMs.end(),0.0)/gDelaysMs.size(); median=Percentile(gDelaysMs,.5); p95=Percentile(gDelaysMs,.95); }
   if(gDelaysMs.size()>1){ double s=0; for(size_t i=1;i<gDelaysMs.size();++i)s+=std::abs(gDelaysMs[i]-gDelaysMs[i-1]); jitter=s/(gDelaysMs.size()-1); }
 
   std::ofstream o(output);
-  o<<"benchmark_version,ns3_version,protocol,scenario_id,seed,run_number,node_count,area_width_m,area_height_m,mobility_model,max_speed_mps,traffic_model,packet_rate_pps,payload_bytes,measurement_start_s,measurement_end_s,socket_bind_status,tx_attempts,tx_rejected,app_packets_sent,app_packets_received,app_payload_bytes_sent,app_payload_bytes_received,pdr,goodput_bps,mean_delay_ms,median_delay_ms,p95_delay_ms,mean_jitter_ms,matched_packets,exit_status,validity_status\n";
-  o<<std::setprecision(12)<<"engineering-v0,3.47,"<<protocol<<","<<scenario<<","<<seed<<","<<run<<","<<nodes<<",500,500,RandomWaypoint,"<<speed<<",UDP-periodic,"<<ratePps<<","<<payload<<","<<start<<","<<simTime<<","<<gBindStatus<<","<<gTxAttempts<<","<<gTxRejected<<","<<gTxPackets<<","<<gRxPackets<<","<<gTxBytes<<","<<gRxBytes<<","<<pdr<<","<<goodput<<","<<mean<<","<<median<<","<<p95<<","<<jitter<<","<<gDelaysMs.size()<<",0,PASS\n";
+  o<<"benchmark_version,ns3_version,protocol,scenario_id,seed,run_number,node_count,area_width_m,area_height_m,mobility_model,max_speed_mps,traffic_model,packet_rate_pps,payload_bytes,measurement_start_s,measurement_end_s,socket_bind_status,tx_attempts,tx_rejected,socket_accepted_packets,app_packets_sent,app_packets_received,app_payload_bytes_sent,app_payload_bytes_received,pdr,goodput_bps,mean_delay_ms,median_delay_ms,p95_delay_ms,mean_jitter_ms,matched_packets,exit_status,validity_status\n";
+  o<<std::setprecision(12)<<"engineering-v0,3.47,"<<protocol<<","<<scenario<<","<<seed<<","<<run<<","<<nodes<<",500,500,RandomWaypoint,"<<speed<<",UDP-periodic,"<<ratePps<<","<<payload<<","<<start<<","<<simTime<<","<<gBindStatus<<","<<gTxAttempts<<","<<gTxRejected<<","<<gTxAccepted<<","<<gTxAttempts<<","<<gRxPackets<<","<<gOfferedBytes<<","<<gRxBytes<<","<<pdr<<","<<goodput<<","<<mean<<","<<median<<","<<p95<<","<<jitter<<","<<gDelaysMs.size()<<",0,PASS\n";
 }
