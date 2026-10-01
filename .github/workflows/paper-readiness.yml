@@ -1,0 +1,26 @@
+name: Paper readiness gate
+
+on:
+  push:
+    paths:
+      - "literature/pending_work.csv"
+      - "review/PAPER_READINESS_LEDGER.md"
+      - "scripts/readiness.py"
+      - ".github/workflows/paper-readiness.yml"
+  pull_request:
+    paths:
+      - "literature/pending_work.csv"
+      - "review/PAPER_READINESS_LEDGER.md"
+      - "scripts/readiness.py"
+  workflow_dispatch:
+
+jobs:
+  readiness:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Report research readiness
+        run: python scripts/readiness.py
