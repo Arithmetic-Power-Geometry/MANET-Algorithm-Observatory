@@ -40,3 +40,15 @@ Artifacts receive stable IDs before generation so paper references can remain co
 Stable table IDs use RV-Txx, BM-Txx, and NA-Txx analogously.
 
 No candidate-algorithm artifact is generated merely to create novelty; the G-CAP gate must pass first.
+
+## Evidence-admission note — Gate 8
+
+The frozen S2 design directly supports scenario-level PDR/goodput/delay/jitter summaries, paired protocol effects, seed-level ranking stability, zero-delivery stress incidence, and scale/mobility/load contrasts.
+
+The following planned benchmark artifacts are **not admitted as final claims from S2 alone**:
+- BM-F03 Pareto Performance Map: requires validated multi-objective cost/overhead dimensions beyond the current common output.
+- BM-F04 Propagation Sensitivity: external V3 evidence exists, but Observatory S2 did not vary propagation.
+- BM-F07 Cost–Performance Frontier: requires validated routing/resource cost measurements.
+- BM-F08 Failure Frontier Atlas: four discrete scenarios support stress signals, not a continuous predeclared failure frontier.
+
+These IDs remain reserved but must not appear as completed paper artifacts unless a separately frozen experiment supplies the required evidence. This prevents planned figures from becoming unsupported claims.
