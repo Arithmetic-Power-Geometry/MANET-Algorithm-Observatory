@@ -1,0 +1,13 @@
+metric_id,metric,unit,definition_role,aggregation,mandatory,notes
+M01,packet_delivery_ratio,ratio,delivered application packets divided by transmitted application packets,per run then across seeds,yes,packet accounting must use identical application boundary
+M02,goodput,bit/s,successfully delivered application payload per unit time,per run then across seeds,yes,exclude routing/control bytes
+M03,end_to_end_delay,s,application packet receive time minus send time,distribution and seed summary,yes,report treatment of undelivered packets separately
+M04,jitter,s,variation in packet delay under frozen definition,per flow/run then seeds,yes,freeze exact estimator before confirmatory run
+M05,routing_control_packets,count,routing-protocol control transmissions,per run and normalized,yes,protocol-specific instrumentation required
+M06,routing_control_bytes,bytes,routing-protocol control bytes transmitted,per run and normalized,yes,needed because packet counts can hide message-size differences
+M07,route_discovery_latency,s,time from route need to usable route where applicable,event distribution,conditional,yes for reactive protocols
+M08,route_breaks,count,detected route/path failures,event count,conditional,yes where semantics can be harmonized
+M09,repair_latency,s,time from relevant failure detection to restored usable route,event distribution,conditional,yes where semantics can be harmonized
+M10,hop_count,hops,forwarding hops for delivered packets,distribution,conditional,helps expose path-efficiency tradeoff
+M11,simulation_runtime,s,wall-clock runtime under controlled environment,per run,yes,resource-cost evidence not network performance
+M12,peak_memory,bytes,peak process memory where measurable,per run,conditional,resource-cost evidence
