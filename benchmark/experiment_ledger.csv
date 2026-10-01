@@ -11,3 +11,7 @@ COMMON-ENG-001,36822659556,OLSRv1,OLSR,3.47,PASS,PASS,FAIL,PENDING,PENDING,inval
 COMMON-ENG-001,36822659556,AODV,AODV,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Common runner API-fix lineage passed but superseded by scenario-provenance and accounting revisions
 COMMON-ENG-001,36822659556,DSDV,DSDV,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Common runner API-fix lineage passed but superseded by scenario-provenance and accounting revisions
 COMMON-ENG-001,36822659556,DSR,DSR,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Common runner API-fix lineage passed but superseded by scenario-provenance and accounting revisions
+COMMON-ENG-002,36835523188,OLSRv1,OLSR,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Canonical synchronized common runner passed; 100 offered 100 synchronously rejected and 0 delivered; engineering diagnostic only no ranking inference
+COMMON-ENG-002,36835523188,AODV,AODV,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Canonical synchronized common runner passed; 100 offered 100 accepted and 0 delivered; engineering diagnostic only no ranking inference
+COMMON-ENG-002,36835523188,DSDV,DSDV,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Canonical synchronized common runner passed; 100 offered 100 accepted and 0 delivered; engineering diagnostic only no ranking inference
+COMMON-ENG-002,36835523188,DSR,DSR,3.47,PASS,PASS,PASS,PASS,PASS,engineering,Canonical synchronized common runner passed; 100 offered 100 accepted and 0 delivered; engineering diagnostic only no ranking inference
