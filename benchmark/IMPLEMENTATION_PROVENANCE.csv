@@ -1,0 +1,7 @@
+impl_id,algorithm,implementation,provenance,specification_alignment,native_status,benchmark_tier,admission_status,known_constraint,verification_date
+I001,AODV,ns-3 aodv module,official ns-3 model library,RFC 3561 base specification,built-in,T1,admitted,implementation-specific deviations must be documented from model library,2026-10-01
+I002,DSDV,ns-3 dsdv module,official ns-3 model library,DSDV MANET implementation,built-in,T1,admitted,implementation parameters and deviations require model-level audit,2026-10-01
+I003,DSR,ns-3 dsr module,official ns-3 model library,DSR MANET implementation,built-in,T1,admitted,FlowMonitor compatibility must be verified for selected ns-3 release,2026-10-01
+I004,OLSR,ns-3 olsr module,official ns-3 model library,RFC 3626 OLSRv1,built-in,T1,admitted,not OLSRv2; IPv4 implementation and documented model limitations apply,2026-10-01
+I005,OLSRv2,none frozen,not native in verified ns-3 OLSR model,RFC 7181,not built-in,T2,blocked,requires independently verified implementation before admission,2026-10-01
+I006,AOMDV,external candidate,not yet verified,AOMDV original mechanism,external,T2,blocked,implementation provenance and fidelity unresolved,2026-10-01
