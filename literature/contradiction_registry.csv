@@ -1,0 +1,5 @@
+contradiction_id,claim_a,claim_b,resolution,status
+C001,Protocol X is best based on heterogeneous published scenario,Observatory S2 rankings vary by seed and scenario,Not a logical contradiction unless conditions match; reconstruct as condition-indexed claims,resolved
+C002,Classical protocol ranking reported under one propagation model,M0012 shows ranking can dissolve or reverse under different propagation assumptions,Propagation is part of the claim signature; unconditional ranking is inadmissible,resolved
+C003,Simulation indicates high delivery/low latency,M0008 real-device opportunistic MANET reports simulation mobility optimistic and interference omissions,Simulation and deployment strata must remain separate; do not infer field performance from simulation alone,resolved
+C004,Learning method reports improvement over selected baselines,M0011 finds fragmented environments and self-selected baselines across learning literature,Reported improvement is study-local until reproduced under common contract,resolved
