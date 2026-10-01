@@ -1,0 +1,11 @@
+metric,upstream_smoke_available,confirmatory_admissible_from_upstream_csv,required_confirmatory_instrumentation,reason
+receive_rate,yes,smoke_only,application receive accounting,Upstream CSV directly reports receive rate but smoke output is not the frozen confirmatory experiment
+packets_received,yes,smoke_only,application receive accounting,Useful for execution sanity but insufficient alone for delivery ratio
+packet_delivery_ratio,no,no,application packets sent and received at identical accounting boundary,PDR requires a denominator that the upstream CSV does not provide
+goodput,no,no,delivered application payload bytes over frozen measurement interval,Must exclude routing and retransmission bytes
+end_to_end_delay,no,no,per-packet application send and receive timestamps,Requires matched packet identity/timestamps
+jitter,no,no,frozen per-packet delay variation estimator,Must use one definition for all protocols
+routing_control_packets,no,no,protocol-aware routing trace instrumentation,Application CSV cannot measure routing overhead
+routing_control_bytes,no,no,protocol-aware routing byte instrumentation,Packet count alone can conceal message-size differences
+route_discovery_latency,no,no,validated protocol event instrumentation,Only meaningful where semantics can be harmonized
+runtime,no,no,workflow process timing,Computational cost must be measured separately from simulated network time
