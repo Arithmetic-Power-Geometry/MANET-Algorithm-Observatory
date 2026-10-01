@@ -60,10 +60,11 @@ class Sender : public Application
 {
 public:
   void Setup(Address peer, uint32_t payloadBytes, Time interval, Time stop)
-  { mPeer=peer; mPayload=payloadBytes; mInterval=interval; mStop=stop; mSourceId=GetNode()->GetId(); }
+  { mPeer=peer; mPayload=payloadBytes; mInterval=interval; mStop=stop; }
 private:
   void StartApplication() override
   {
+    mSourceId=GetNode()->GetId();
     mSocket=Socket::CreateSocket(GetNode(), UdpSocketFactory::GetTypeId());
     mSocket->Connect(mPeer);
     Send();
