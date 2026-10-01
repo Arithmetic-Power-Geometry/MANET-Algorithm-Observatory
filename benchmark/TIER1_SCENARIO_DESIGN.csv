@@ -1,0 +1,10 @@
+factor_id,factor,development_levels,confirmatory_levels,scientific_purpose,status
+F01,node_count,25;50;100,10;250;500 if computationally feasible,scale sensitivity,provisional
+F02,mobility_speed,low;medium;high,held-out intermediate/extreme bands,mobility sensitivity,provisional
+F03,pause_or_temporal_persistence,short;medium;long,held-out values,topology churn,provisional
+F04,area_density,coupled pilot levels,independently varied scale and density,disentangle scale from density,provisional
+F05,active_flows,low;medium;high,held-out saturation-oriented level,route-demand intensity,provisional
+F06,offered_load,light;moderate;high,near-saturation stress,congestion sensitivity,provisional
+F07,propagation,baseline open-field,alternative physically plausible models,ranking robustness,GATE_REQUIRED
+F08,mobility_model,RandomWaypoint,GaussMarkov;group/structured where supported,model robustness,GATE_REQUIRED
+F09,seed,debug seeds,predeclared confirmatory seed set,uncertainty and reproducibility,GATE_REQUIRED
