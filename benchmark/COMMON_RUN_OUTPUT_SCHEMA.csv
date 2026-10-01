@@ -16,9 +16,13 @@ packet_rate_pps,float,packets/s,yes,scenario,Per-source application packet rate
 payload_bytes,integer,bytes,yes,scenario,Application payload bytes per packet
 measurement_start_s,float,s,yes,run,Start of admitted measurement interval
 measurement_end_s,float,s,yes,run,End of admitted measurement interval
-app_packets_sent,integer,packets,yes,run,Application packets emitted within accounting boundary
+socket_bind_status,integer,,yes,diagnostic,UDP source bind return status
+tx_attempts,integer,packets,yes,diagnostic,Application datagrams offered to the socket
+tx_rejected,integer,packets,yes,diagnostic,Offered datagrams synchronously rejected by the socket or routing path
+socket_accepted_packets,integer,packets,yes,diagnostic,Offered datagrams accepted by SendTo
+app_packets_sent,integer,packets,yes,run,Application datagrams offered by the source within the accounting boundary
 app_packets_received,integer,packets,yes,run,Application packets delivered within same accounting boundary
-app_payload_bytes_sent,integer,bytes,yes,run,Application payload bytes emitted
+app_payload_bytes_sent,integer,bytes,yes,run,Application payload bytes offered by the source
 app_payload_bytes_received,integer,bytes,yes,run,Application payload bytes delivered
 pdr,float,ratio,yes,derived,app_packets_received/app_packets_sent when sent > 0
 goodput_bps,float,bits/s,yes,derived,8*app_payload_bytes_received/measurement_duration
