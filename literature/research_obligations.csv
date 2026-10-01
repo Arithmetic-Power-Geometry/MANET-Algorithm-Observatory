@@ -1,0 +1,7 @@
+obligation_id,family,decision_role,condition,current_evidence,missing_evidence,resolution_experiment,gap_class,status
+O001,classical routing,route maintenance,propagation-model variation,ranking sensitivity demonstrated for selected classical protocols,broad multi-model multi-mobility confirmation,paired protocol benchmark across frozen traces and propagation models,G-ROB,open
+O002,reactive vs proactive,route acquisition/maintenance,mobility × active-route demand,crossover widely motivated but not yet mapped in Observatory,conditioned crossover surface,factorial demand/churn experiment,G-EVAL,open
+O003,multipath,route repair,correlated mobility/failure,AOMDV mechanism suggests alternate-path benefit,correlation-aware failure frontier,compare single-path and multipath under controlled correlated failures,G-EVAL,open
+O004,learning routing,adaptive routing,topology/scale/mobility shift,recent reviews report limited generalization practice,held-out OOD evidence,frozen training regime plus unseen topology/scale/mobility tests,G-GEN,open
+O005,learning routing,adaptive routing,resource-constrained nodes,performance gains frequently emphasized,end-to-end compute/memory/communication accounting,cost-instrumented benchmark,G-COST,open
+O006,MANET routing,all decisions,real mobility/interference,simulation dominates much of literature,simulation-to-real correspondence,paired simulation/testbed scenarios where feasible,G-REAL,open
