@@ -11,8 +11,8 @@ P009,evidence,P0,Complete C0-C4 comparability classification,P001-P007,comparabi
 P010,evidence,P0,Complete E0-E8 maturity profiles,P001-P007,evidence maturity atlas,pending
 P011,gaps,P0,Resolve contradiction candidates,P009,contradiction map,pending
 P012,gaps,P0,Freeze evidence-backed research obligations,P011,gap atlas,pending
-P013,benchmark,P0,Verify and freeze simulator implementations,P001-P002,implementation manifest,pending
-P014,benchmark,P0,Build T1 smoke benchmark,P013,passing CI benchmark,pending
+P013,benchmark,P0,Verify and freeze simulator implementations,P001-P002,implementation manifest,complete
+P014,benchmark,P0,Build T1 smoke benchmark,P013,passing CI benchmark,complete
 P015,benchmark,P0,Freeze scenario seed metric contracts,P014,benchmark release candidate,pending
 P016,benchmark,P0,Run full controlled benchmark,P015,versioned raw results,pending
 P017,analysis,P0,Run statistics sensitivity Pareto ranking stability failure frontiers,P016,benchmark artifacts,pending
