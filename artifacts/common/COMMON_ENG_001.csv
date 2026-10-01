@@ -1,0 +1,5 @@
+protocol,tx_attempts,tx_rejected,socket_accepted_packets,app_packets_sent,app_packets_received,pdr,goodput_bps,matched_packets,validity_status
+AODV,100,0,100,100,0,0,0,0,PASS
+DSDV,100,0,100,100,0,0,0,0,PASS
+DSR,100,0,100,100,0,0,0,0,PASS
+OLSR,100,100,0,100,0,0,0,0,PASS
