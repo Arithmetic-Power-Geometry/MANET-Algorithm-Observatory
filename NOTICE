@@ -1,0 +1,13 @@
+MANET Algorithm Observatory
+Copyright (C) 2026 Mohammad Amir Khusru Akhtar
+
+Licensed under the Apache License, Version 2.0.
+
+This repository contains original research software, evidence schemas,
+analysis workflows, documentation, and application code developed for
+the MANET Algorithm Observatory.
+
+Third-party software and external research artifacts retain their
+respective copyrights and licenses. In particular, ns-3 is obtained
+from its upstream project during validation workflows and is not
+relicensed by this repository.
