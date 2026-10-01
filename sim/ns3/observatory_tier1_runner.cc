@@ -120,8 +120,11 @@ int main(int argc,char** argv)
   NetDeviceContainer dev=wifi.Install(phy,mac,n);
 
   MobilityHelper mob;
-  mob.SetPositionAllocator("ns3::RandomRectanglePositionAllocator","X",StringValue("ns3::UniformRandomVariable[Min=0|Max=500]"),"Y",StringValue("ns3::UniformRandomVariable[Min=0|Max=500]"));
-  mob.SetMobilityModel("ns3::RandomWaypointMobilityModel","Speed",StringValue("ns3::UniformRandomVariable[Min=0|Max="+std::to_string(speed)+"]"),"Pause",StringValue("ns3::ConstantRandomVariable[Constant=1]"),"PositionAllocator",PointerValue(mob.GetPositionAllocator()));
+  Ptr<RandomRectanglePositionAllocator> position=CreateObject<RandomRectanglePositionAllocator>();
+  position->SetAttribute("X",StringValue("ns3::UniformRandomVariable[Min=0|Max=500]"));
+  position->SetAttribute("Y",StringValue("ns3::UniformRandomVariable[Min=0|Max=500]"));
+  mob.SetPositionAllocator(position);
+  mob.SetMobilityModel("ns3::RandomWaypointMobilityModel","Speed",StringValue("ns3::UniformRandomVariable[Min=0|Max="+std::to_string(speed)+"]"),"Pause",StringValue("ns3::ConstantRandomVariable[Constant=1]"),"PositionAllocator",PointerValue(position));
   mob.Install(n);
 
   InternetStackHelper internet;
