@@ -1,0 +1,11 @@
+artifact_id,type,title,evidence_source,status,claim_boundary
+BM-T01,table,Frozen S2 scenario-level PDR summary,Actions 36845825031; 320 validated runs,final,Scenario-specific only
+BM-T02,table,Paired S2 PDR effects and multiplicity-adjusted inference,artifacts/s2/pairwise_pdr_gate6.csv,final,Paired by seed within frozen scenario
+BM-T03,table,Seed-level ranking stability,Actions 36845825031,final,No universal-winner inference
+BM-T04,table,Zero-delivery stress incidence,Actions 36845825031,final,Stress signal not continuous failure frontier
+BM-F02,figure,Ranking stability by frozen scenario,BM-T03,admitted,Four discrete scenarios only
+BM-F06,figure,Scale stress comparison,S2_BASE vs S2_SCALE,admitted,Single frozen scale contrast not scaling law
+RV-T01,table,Comparability and evidence maturity atlas,literature/comparability_maturity_atlas.csv,final,Verified corpus only
+RV-T02,table,Closest-review non-redundancy matrix,literature/closest_reviews.csv,final,No first/only claim
+RV-T03,table,Evidence-backed research obligations,literature/research_obligations.csv,final,Obligations not proof of absent capability
+RV-T04,table,Resolved contradiction map,literature/contradiction_registry.csv,final,Condition-indexed resolution
