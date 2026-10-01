@@ -1,0 +1,36 @@
+name: Streamlit atlas validation
+
+on:
+  push:
+    paths:
+      - "streamlit_app.py"
+      - "app_core/**"
+      - "app_pages/**"
+      - "literature/**"
+      - "benchmark/**"
+      - "scripts/validate_app.py"
+      - "requirements.txt"
+      - ".github/workflows/app-validation.yml"
+  pull_request:
+    paths:
+      - "streamlit_app.py"
+      - "app_core/**"
+      - "app_pages/**"
+      - "literature/**"
+      - "benchmark/**"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate repository data contracts and Python syntax
+        run: python scripts/validate_app.py
+      - name: Install application dependencies
+        run: pip install -r requirements.txt
+      - name: Import Streamlit and pandas
+        run: python -c "import streamlit,pandas; print('APP_DEPENDENCIES=PASS')"
