@@ -1,8 +1,8 @@
-# Final benchmark tables — S2
+# S2 Confirmatory Benchmark Tables
 
-These values come from the frozen S2 confirmatory design: 20 predeclared seeds per protocol per scenario. They are condition-specific evidence, not a universal protocol leaderboard.
+The S2 benchmark uses 20 predeclared seeds per protocol and scenario. Results are condition-specific and are not a universal protocol leaderboard.
 
-## BM-T01 — Mean PDR
+## Mean packet delivery ratio
 
 | Scenario | AODV | DSDV | DSR | OLSRv1 |
 |---|---:|---:|---:|---:|
@@ -11,18 +11,29 @@ These values come from the frozen S2 confirmatory design: 20 predeclared seeds p
 | LOAD | 0.6238 | 0.4016 | 0.5738 | 0.3900 |
 | SCALE | 0.3990 | 0.1815 | 0.2365 | 0.1240 |
 
-## BM-T03 — Strict seed-level rank-1 fraction
+## Paired AODV-minus-DSR PDR
 
-| Scenario | AODV | DSR | Interpretation |
-|---|---:|---:|---|
-| BASE | 0.35 | 0.55 | rank-1 membership varies by seed |
-| FAST | 0.50 | 0.45 | near-balanced rank-1 membership |
-| LOAD | 0.40 | 0.45 | neither protocol dominates seed-wise |
-| SCALE | 0.65 | 0.15 | AODV more often rank-1 in this frozen scale condition |
+| Scenario | Mean difference | Bootstrap 95% CI | Holm-adjusted Wilcoxon p |
+|---|---:|---:|---:|
+| BASE | -0.0015 | [-0.1170, 0.1255] | 0.8638 |
+| FAST | -0.0190 | [-0.1305, 0.0850] | 0.8960 |
+| LOAD | 0.0500 | [-0.0506, 0.1608] | 1.0000 |
+| SCALE | 0.1625 | [0.0280, 0.2950] | 0.0437 |
 
-Fractions do not necessarily sum to one because DSDV/OLSR can be rank-1 and ties can occur.
+BASE, FAST, and LOAD do not provide evidence of a reproducible directional separation between AODV and DSR. Under SCALE, the paired difference is positive in this sample and remains distinguishable after Holm adjustment.
 
-## BM-T04 — Zero-delivery incidence in SCALE
+## Strict seed-level rank-1 fraction
+
+| Scenario | AODV | DSR |
+|---|---:|---:|
+| BASE | 0.35 | 0.55 |
+| FAST | 0.50 | 0.45 |
+| LOAD | 0.40 | 0.45 |
+| SCALE | 0.65 | 0.15 |
+
+Rank-1 membership varies across seeds and operating conditions.
+
+## Zero-delivery incidence under SCALE
 
 | Protocol | Zero-PDR runs | Total |
 |---|---:|---:|
@@ -31,4 +42,4 @@ Fractions do not necessarily sum to one because DSDV/OLSR can be rank-1 and ties
 | DSR | 8 | 20 |
 | OLSRv1 | 8 | 20 |
 
-This is a discrete stress indicator, not a continuous failure frontier.
+This is a discrete stress indicator and does not establish a continuous failure frontier.
