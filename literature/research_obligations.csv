@@ -5,3 +5,5 @@ O003,multipath,route repair,correlated mobility/failure,AOMDV mechanism suggests
 O004,learning routing,adaptive routing,topology/scale/mobility shift,recent reviews report limited generalization practice,held-out OOD evidence,frozen training regime plus unseen topology/scale/mobility tests,G-GEN,open
 O005,learning routing,adaptive routing,resource-constrained nodes,performance gains frequently emphasized,end-to-end compute/memory/communication accounting,cost-instrumented benchmark,G-COST,open
 O006,MANET routing,all decisions,real mobility/interference,simulation dominates much of literature,simulation-to-real correspondence,paired simulation/testbed scenarios where feasible,G-REAL,open
+O007,all routing,comparative claim,stochastic seeds and scenario changes,S2 shows substantial seed-level rank changes,independent-seed uncertainty and paired condition reporting,multi-seed paired comparisons,G-REP,frozen
+O008,intelligent routing,novel mechanism,closest adaptive prior art,verified corpus already contains RL DRL federated MARL and GNN routing,specific missing capability before proposing another intelligent protocol,capability-first novelty test,G-CAP,frozen
