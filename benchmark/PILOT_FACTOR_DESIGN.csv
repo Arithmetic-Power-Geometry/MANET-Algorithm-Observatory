@@ -1,0 +1,16 @@
+factor_id,factor,level_id,value_or_definition,purpose,status
+F01,node_count,N1,25,small-scale regime,proposed
+F01,node_count,N2,50,reference regime,proposed
+F01,node_count,N3,100,larger Tier-1 regime,proposed
+F02,density_control,D1,constant_area,exposes density increase with N,proposed
+F02,density_control,D2,approximately_constant_density,scales area with N to separate scale from density,proposed
+F03,mobility_speed,V1,low,stable-topology regime; exact m/s frozen after feasibility pilot,proposed
+F03,mobility_speed,V2,medium,intermediate churn; exact m/s frozen after feasibility pilot,proposed
+F03,mobility_speed,V3,high,high-churn regime; exact m/s frozen after feasibility pilot,proposed
+F04,offered_load,L1,light,below expected saturation; exact rate frozen after pilot,proposed
+F04,offered_load,L2,moderate,intermediate load; exact rate frozen after pilot,proposed
+F04,offered_load,L3,high,stress load; exact rate frozen after pilot,proposed
+F05,propagation,P1,Friis,idealized/open reference assumption,proposed
+F05,propagation,P2,LogDistance,non-ideal distance-sensitive robustness condition,proposed
+F06,mobility_model,M1,RandomWaypoint,canonical mobile reference,proposed
+F06,mobility_model,M2,GaussMarkov,correlated-motion robustness condition,proposed
