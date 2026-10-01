@@ -14,11 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include:
-          - { protocol: AODV, protocol_id: 2 }
-          - { protocol: DSDV, protocol_id: 3 }
-          - { protocol: DSR, protocol_id: 4 }
-          - { protocol: OLSR, protocol_id: 1 }
+        protocol: [AODV, DSDV, DSR, OLSR]
     steps:
       - uses: actions/checkout@v4
 
@@ -33,6 +29,12 @@ jobs:
         working-directory: ns-3.47
         run: ./ns3 configure --build-profile=release --enable-examples
 
+      - name: Verify ns-3.47 protocol CLI contract
+        working-directory: ns-3.47
+        run: |
+          grep -F 'Routing protocol (OLSR, AODV, DSDV, DSR)' examples/routing/manet-routing-compare.cc
+          grep -F 'allowedProtocols{"OLSR", "AODV", "DSDV", "DSR"}' examples/routing/manet-routing-compare.cc
+
       - name: Build MANET example
         working-directory: ns-3.47
         run: ./ns3 build manet-routing-compare
@@ -41,7 +43,7 @@ jobs:
         working-directory: ns-3.47
         run: |
           mkdir -p ../artifacts/raw
-          ./ns3 run "manet-routing-compare --protocol=${{ matrix.protocol_id }} --traceMobility=0 --CSVfileName=../artifacts/raw/${{ matrix.protocol }}.csv" > ../artifacts/raw/${{ matrix.protocol }}.log 2>&1
+          ./ns3 run "manet-routing-compare --protocol=${{ matrix.protocol }} --traceMobility=0 --CSVfileName=../artifacts/raw/${{ matrix.protocol }}.csv" > ../artifacts/raw/${{ matrix.protocol }}.log 2>&1
           test -s ../artifacts/raw/${{ matrix.protocol }}.csv
 
       - name: Validate upstream output schema
