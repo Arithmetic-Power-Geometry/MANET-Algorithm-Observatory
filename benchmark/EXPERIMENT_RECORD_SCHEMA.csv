@@ -1,0 +1,26 @@
+field,required,description
+experiment_id,yes,stable unique identifier
+git_commit,yes,Observatory commit used
+ns3_version,yes,exact ns-3 release or commit
+protocol,yes,exact evaluated implementation label
+protocol_parameters,yes,serialized non-default and relevant defaults
+seed,yes,ns-3 seed
+run_number,yes,ns-3 run number
+node_count,yes,number of mobile nodes
+area,yes,geometry
+mobility_model,yes,exact mobility model
+mobility_parameters,yes,speed pause and model-specific parameters
+wifi_standard,yes,exact standard/configuration
+phy_mac_parameters,yes,relevant PHY/MAC settings
+propagation_model,yes,exact propagation model and parameters
+traffic_model,yes,application/transport definition
+flow_count,yes,active flows
+packet_size,yes,application payload size
+offered_load,yes,defined offered load
+duration,yes,simulation duration
+warmup,yes,excluded warm-up interval if any
+metric_definition_version,yes,versioned metric dictionary
+raw_output_path,yes,path to raw machine-readable result
+stdout_log,yes,path or captured log
+environment_manifest,yes,compiler/OS/container provenance
+timestamp_utc,yes,execution timestamp
