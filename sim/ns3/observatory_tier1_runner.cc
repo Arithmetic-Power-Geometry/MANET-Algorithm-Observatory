@@ -30,28 +30,29 @@ NS_LOG_COMPONENT_DEFINE("ObservatoryTier1Runner");
 
 static uint64_t gTxPackets=0, gRxPackets=0, gTxBytes=0, gRxBytes=0;
 static std::vector<double> gDelaysMs;
-static std::unordered_set<uint32_t> gSeenSeq;
+static std::unordered_set<uint64_t> gSeenPacketId;
 
 class ObservatoryHeader : public Header
 {
 public:
   ObservatoryHeader() = default;
-  ObservatoryHeader(uint32_t seq, uint64_t txNs) : mMagic(0x4D414E45), mSeq(seq), mTxNs(txNs) {}
+  ObservatoryHeader(uint32_t sourceId, uint32_t seq, uint64_t txNs) : mMagic(0x4D414E45), mSourceId(sourceId), mSeq(seq), mTxNs(txNs) {}
   static TypeId GetTypeId()
   {
     static TypeId tid=TypeId("ObservatoryHeader").SetParent<Header>().AddConstructor<ObservatoryHeader>();
     return tid;
   }
   TypeId GetInstanceTypeId() const override { return GetTypeId(); }
-  uint32_t GetSerializedSize() const override { return 16; }
-  void Serialize(Buffer::Iterator i) const override { i.WriteHtonU32(mMagic); i.WriteHtonU32(mSeq); i.WriteHtonU64(mTxNs); }
-  uint32_t Deserialize(Buffer::Iterator i) override { mMagic=i.ReadNtohU32(); mSeq=i.ReadNtohU32(); mTxNs=i.ReadNtohU64(); return 16; }
-  void Print(std::ostream& os) const override { os<<"seq="<<mSeq; }
+  uint32_t GetSerializedSize() const override { return 20; }
+  void Serialize(Buffer::Iterator i) const override { i.WriteHtonU32(mMagic); i.WriteHtonU32(mSourceId); i.WriteHtonU32(mSeq); i.WriteHtonU64(mTxNs); }
+  uint32_t Deserialize(Buffer::Iterator i) override { mMagic=i.ReadNtohU32(); mSourceId=i.ReadNtohU32(); mSeq=i.ReadNtohU32(); mTxNs=i.ReadNtohU64(); return 20; }
+  void Print(std::ostream& os) const override { os<<"source="<<mSourceId<<" seq="<<mSeq; }
   uint64_t GetTxNs() const { return mTxNs; }
   uint32_t GetSeq() const { return mSeq; }
+  uint32_t GetSourceId() const { return mSourceId; }
   bool IsValid() const { return mMagic==0x4D414E45; }
 private:
-  uint32_t mMagic=0; uint32_t mSeq=0;
+  uint32_t mMagic=0; uint32_t mSourceId=0; uint32_t mSeq=0;
   uint64_t mTxNs=0;
 };
 
@@ -59,7 +60,7 @@ class Sender : public Application
 {
 public:
   void Setup(Address peer, uint32_t payloadBytes, Time interval, Time stop)
-  { mPeer=peer; mPayload=payloadBytes; mInterval=interval; mStop=stop; }
+  { mPeer=peer; mPayload=payloadBytes; mInterval=interval; mStop=stop; mSourceId=GetNode()->GetId(); }
 private:
   void StartApplication() override
   {
@@ -72,12 +73,12 @@ private:
   {
     if(Simulator::Now()>=mStop) return;
     Ptr<Packet> p=Create<Packet>(mPayload);
-    ObservatoryHeader h(mSeq++, static_cast<uint64_t>(Simulator::Now().GetNanoSeconds()));
+    ObservatoryHeader h(mSourceId, mSeq++, static_cast<uint64_t>(Simulator::Now().GetNanoSeconds()));
     p->AddHeader(h);
     if(mSocket->Send(p)>=0){ ++gTxPackets; gTxBytes+=mPayload; }
     mEvent=Simulator::Schedule(mInterval,&Sender::Send,this);
   }
-  Ptr<Socket> mSocket; Address mPeer; uint32_t mPayload=512, mSeq=0; Time mInterval=Seconds(1),mStop=Seconds(0); EventId mEvent;
+  Ptr<Socket> mSocket; Address mPeer; uint32_t mPayload=512, mSourceId=0, mSeq=0; Time mInterval=Seconds(1),mStop=Seconds(0); EventId mEvent;
 };
 
 static void Receive(Ptr<Socket> socket)
@@ -86,8 +87,9 @@ static void Receive(Ptr<Socket> socket)
   while(auto p=socket->RecvFrom(from))
   {
     ObservatoryHeader h;
-    if(p->RemoveHeader(h)!=16 || !h.IsValid()) continue;
-    if(!gSeenSeq.insert(h.GetSeq()).second) continue;
+    if(p->RemoveHeader(h)!=20 || !h.IsValid()) continue;
+    uint64_t packetId=(static_cast<uint64_t>(h.GetSourceId())<<32)|h.GetSeq();
+    if(!gSeenPacketId.insert(packetId).second) continue;
     ++gRxPackets;
     gRxBytes+=p->GetSize();
     double d=(Simulator::Now().GetNanoSeconds()-h.GetTxNs())/1e6;
