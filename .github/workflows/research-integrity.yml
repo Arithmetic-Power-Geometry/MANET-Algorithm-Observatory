@@ -26,3 +26,4 @@ jobs:
       - run: pip install pytest
       - run: pytest -q
       - run: python scripts/validate_metric_admissibility.py
+      - run: python scripts/validate_experiment_ledger.py
