@@ -1,0 +1,4 @@
+limitation_id,algorithm,implementation,source_type,limitation,evidence_consequence,status
+IL001,DSR,ns-3 DSR,official ns-3 model documentation,Model documentation reports incomplete RFC 4728 compliance including a fixed-size header extension,Controlled results must be identified as evidence about the ns-3 implementation rather than unrestricted RFC 4728 behavior,verified
+IL002,DSR,ns-3 manet-routing-compare,official ns-3 example,Common comparison instrumentation has protocol-specific FlowMonitor constraints for DSR,A protocol-independent application accounting layer is required before confirmatory cross-protocol comparison,verified
+IL003,OLSR,ns-3 OLSR,official ns-3 model documentation,Implementation corresponds to OLSRv1/RFC 3626 rather than OLSRv2/RFC 7181,Results must be labeled OLSRv1 and not generalized to OLSRv2,verified
