@@ -1,0 +1,25 @@
+name: Evidence validation
+
+on:
+  push:
+    paths:
+      - "literature/**"
+      - "review/**"
+      - "scripts/**"
+      - ".github/workflows/evidence-validation.yml"
+  pull_request:
+    paths:
+      - "literature/**"
+      - "review/**"
+      - "scripts/**"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate evidence structures
+        run: python scripts/validate_evidence.py
