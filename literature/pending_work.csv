@@ -13,9 +13,9 @@ P011,gaps,P0,Resolve contradiction candidates,P009,contradiction map,pending
 P012,gaps,P0,Freeze evidence-backed research obligations,P011,gap atlas,pending
 P013,benchmark,P0,Verify and freeze simulator implementations,P001-P002,implementation manifest,complete
 P014,benchmark,P0,Build T1 smoke benchmark,P013,passing CI benchmark,complete
-P015,benchmark,P0,Freeze scenario seed metric contracts,P014,benchmark release candidate,pending
-P016,benchmark,P0,Run full controlled benchmark,P015,versioned raw results,pending
-P017,analysis,P0,Run statistics sensitivity Pareto ranking stability failure frontiers,P016,benchmark artifacts,pending
+P015,benchmark,P0,Freeze scenario seed metric contracts,P014,benchmark release candidate,complete
+P016,benchmark,P0,Run full controlled benchmark,P015,versioned raw results,complete
+P017,analysis,P0,Run statistics sensitivity Pareto ranking stability failure frontiers,P016,benchmark artifacts,partial
 P018,novel_algo,P0,Decide G-CAP gate,P012+P017,go/no-go decision,pending
 P019,novel_algo,P0,Design/test novel algorithm only if justified,P018,confirmatory evidence,pending
 P020,artifacts,P0,Generate final review and benchmark figures/tables,P010-P019,frozen artifact set,pending
