@@ -114,13 +114,13 @@ static double Percentile(std::vector<double> v,double q)
 int main(int argc,char** argv)
 {
   std::string protocol="AODV", output="observatory-run.csv", scenario="engineering-common-001", observatoryCommit="unknown";
-  uint32_t nodes=25, payload=512; double simTime=60.0, start=10.0, ratePps=2.0, speed=5.0; uint32_t seed=12345, run=1;
+  uint32_t nodes=25, payload=512; double simTime=60.0, start=10.0, ratePps=2.0, speed=5.0, area=500.0; bool staticGrid=false; uint32_t seed=12345, run=1;
   CommandLine cmd(__FILE__);
   cmd.AddValue("protocol","AODV, DSDV, DSR, or OLSR",protocol);
   cmd.AddValue("output","Output CSV",output); cmd.AddValue("scenario","Scenario ID",scenario); cmd.AddValue("observatoryCommit","Exact Observatory source commit",observatoryCommit);
   cmd.AddValue("nodes","Node count",nodes); cmd.AddValue("payload","Application payload bytes",payload);
   cmd.AddValue("simTime","Simulation seconds",simTime); cmd.AddValue("start","Measurement/application start",start);
-  cmd.AddValue("ratePps","Packets per second",ratePps); cmd.AddValue("speed","RandomWaypoint max speed m/s",speed);
+  cmd.AddValue("ratePps","Packets per second",ratePps); cmd.AddValue("speed","RandomWaypoint max speed m/s",speed); cmd.AddValue("area","Square area side metres",area); cmd.AddValue("staticGrid","Use deterministic static grid sanity topology",staticGrid);
   cmd.AddValue("seed","RNG seed",seed); cmd.AddValue("run","RNG run",run); cmd.Parse(argc,argv);
   NS_ABORT_MSG_IF(protocol!="AODV"&&protocol!="DSDV"&&protocol!="DSR"&&protocol!="OLSR","Unsupported protocol");
   RngSeedManager::SetSeed(seed); RngSeedManager::SetRun(run);
@@ -132,11 +132,18 @@ int main(int argc,char** argv)
   NetDeviceContainer dev=wifi.Install(phy,mac,n);
 
   MobilityHelper mob;
-  Ptr<RandomRectanglePositionAllocator> position=CreateObject<RandomRectanglePositionAllocator>();
-  position->SetAttribute("X",StringValue("ns3::UniformRandomVariable[Min=0|Max=500]"));
-  position->SetAttribute("Y",StringValue("ns3::UniformRandomVariable[Min=0|Max=500]"));
-  mob.SetPositionAllocator(position);
-  mob.SetMobilityModel("ns3::RandomWaypointMobilityModel","Speed",StringValue("ns3::UniformRandomVariable[Min=0|Max="+std::to_string(speed)+"]"),"Pause",StringValue("ns3::ConstantRandomVariable[Constant=1]"),"PositionAllocator",PointerValue(position));
+  std::string mobilityLabel="RandomWaypoint";
+  if(staticGrid){
+    mobilityLabel="ConstantPositionGrid";
+    mob.SetPositionAllocator("ns3::GridPositionAllocator","MinX",DoubleValue(0.0),"MinY",DoubleValue(0.0),"DeltaX",DoubleValue(25.0),"DeltaY",DoubleValue(25.0),"GridWidth",UintegerValue(5),"LayoutType",StringValue("RowFirst"));
+    mob.SetMobilityModel("ns3::ConstantPositionMobilityModel");
+  } else {
+    Ptr<RandomRectanglePositionAllocator> position=CreateObject<RandomRectanglePositionAllocator>();
+    position->SetAttribute("X",StringValue("ns3::UniformRandomVariable[Min=0|Max="+std::to_string(area)+"]"));
+    position->SetAttribute("Y",StringValue("ns3::UniformRandomVariable[Min=0|Max="+std::to_string(area)+"]"));
+    mob.SetPositionAllocator(position);
+    mob.SetMobilityModel("ns3::RandomWaypointMobilityModel","Speed",StringValue("ns3::UniformRandomVariable[Min=0|Max="+std::to_string(speed)+"]"),"Pause",StringValue("ns3::ConstantRandomVariable[Constant=1]"),"PositionAllocator",PointerValue(position));
+  }
   mob.Install(n);
 
   InternetStackHelper internet;
@@ -162,5 +169,5 @@ int main(int argc,char** argv)
 
   std::ofstream o(output);
   o<<"benchmark_version,observatory_commit,ns3_version,protocol,scenario_id,seed,run_number,node_count,area_width_m,area_height_m,mobility_model,max_speed_mps,traffic_model,packet_rate_pps,payload_bytes,measurement_start_s,measurement_end_s,socket_bind_status,tx_attempts,tx_rejected,socket_accepted_packets,app_packets_sent,app_packets_received,app_payload_bytes_sent,app_payload_bytes_received,pdr,goodput_bps,mean_delay_ms,median_delay_ms,p95_delay_ms,mean_jitter_ms,matched_packets,exit_status,validity_status\n";
-  o<<std::setprecision(12)<<"engineering-v0,"<<observatoryCommit<<",3.47,"<<protocol<<","<<scenario<<","<<seed<<","<<run<<","<<nodes<<",500,500,RandomWaypoint,"<<speed<<",UDP-periodic,"<<ratePps<<","<<payload<<","<<start<<","<<simTime<<","<<gBindStatus<<","<<gTxAttempts<<","<<gTxRejected<<","<<gTxAccepted<<","<<gTxAttempts<<","<<gRxPackets<<","<<gOfferedBytes<<","<<gRxBytes<<","<<pdr<<","<<goodput<<","<<mean<<","<<median<<","<<p95<<","<<jitter<<","<<gDelaysMs.size()<<",0,PASS\n";
+  o<<std::setprecision(12)<<"engineering-v0,"<<observatoryCommit<<",3.47,"<<protocol<<","<<scenario<<","<<seed<<","<<run<<","<<nodes<<","<<area<<","<<area<<","<<mobilityLabel<<","<<speed<<",UDP-periodic,"<<ratePps<<","<<payload<<","<<start<<","<<simTime<<","<<gBindStatus<<","<<gTxAttempts<<","<<gTxRejected<<","<<gTxAccepted<<","<<gTxAttempts<<","<<gRxPackets<<","<<gOfferedBytes<<","<<gRxBytes<<","<<pdr<<","<<goodput<<","<<mean<<","<<median<<","<<p95<<","<<jitter<<","<<gDelaysMs.size()<<",0,PASS\n";
 }
