@@ -1,0 +1,36 @@
+field,meaning,allowed_or_expected_values
+algorithm_id,stable identifier,string
+algorithm_name,canonical name,string
+family,mechanism family,string
+first_year,earliest defining publication,year
+primary_spec,primary source DOI/RFC/string,string
+standard_status,formal maturity,standard|experimental RFC|draft|peer-reviewed|research prototype|historical
+decision_role,what routing decision changes,string
+information_scope,information horizon,local|neighbor|path|zone|network|mixed
+temporal_mode,when decisions are made,proactive|reactive|hybrid|predictive|adaptive
+route_state,state retained,string
+control_mechanism,control/signaling introduced,string
+compute_model,main computation,string
+memory_model,main stored state,string
+main_capability,principal capability,string
+known_cost,principal structural cost,string
+ns3_status,ns-3 implementation status,built-in|external verified|external unverified|none known|not checked
+other_simulators,other verified implementations,string
+code_status,public implementation evidence,official|research code|third-party|none known|not checked
+simulation_evidence,simulation evidence strength,none|limited|moderate|broad
+testbed_evidence,testbed evidence strength,none|limited|moderate|broad
+field_evidence,real deployment evidence strength,none|limited|moderate|broad
+max_reported_scale,largest verified scale,string
+mobility_coverage,mobility families tested,string
+propagation_coverage,propagation/channel models tested,string
+traffic_coverage,traffic regimes tested,string
+energy_evidence,energy evaluation,string
+security_evidence,attack/security evaluation,string
+statistics_status,statistical reporting,string
+reproducibility_status,reproducibility classification,string
+generalization_status,OOD/generalization evidence,string
+known_failure_modes,evidence-backed failure modes,string
+contradiction_status,known conflicting findings,string
+benchmark_admission,current Observatory status,not assessed|candidate|admitted|blocked
+gap_tags,registered gap classes,string
+last_verified,verification date,YYYY-MM-DD
