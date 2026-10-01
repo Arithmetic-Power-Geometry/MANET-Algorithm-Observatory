@@ -1,0 +1,35 @@
+name: ns3 tier1 build validation
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - benchmark/NS3_VERSION.md
+      - benchmark/tier1_smoke_matrix.csv
+      - scripts/parse_ns3_manet_csv.py
+      - scripts/compare_smoke_outputs.py
+      - .github/workflows/ns3-tier1-build.yml
+jobs:
+  ns3-build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Checkout upstream ns-3.47
+        uses: actions/checkout@v4
+        with:
+          repository: nsnam/ns-3-dev-git
+          ref: ns-3.47
+          path: ns-3.47
+      - name: Configure
+        working-directory: ns-3.47
+        run: ./ns3 configure --build-profile=release --enable-examples
+      - name: Build MANET comparison
+        working-directory: ns-3.47
+        run: ./ns3 build manet-routing-compare
+      - name: Verify four canonical protocol labels
+        working-directory: ns-3.47
+        run: |
+          grep -q 'm_protocolName == "AODV"' examples/routing/manet-routing-compare.cc
+          grep -q 'm_protocolName == "DSDV"' examples/routing/manet-routing-compare.cc
+          grep -q 'm_protocolName == "DSR"' examples/routing/manet-routing-compare.cc
+          grep -q 'm_protocolName == "OLSR"' examples/routing/manet-routing-compare.cc
+          echo NS3_TIER1_BUILD=PASS
