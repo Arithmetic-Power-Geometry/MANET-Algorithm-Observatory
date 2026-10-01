@@ -1,0 +1,5 @@
+protocol,ns3_protocol,node_count,speed_mps,pause_s,duration_s,seed,run,stage
+AODV,AODV,50,20,0,200,12345,1,smoke
+DSDV,DSDV,50,20,0,200,12345,1,smoke
+DSR,DSR,50,20,0,200,12345,1,smoke
+OLSRv1,OLSR,50,20,0,200,12345,1,smoke
