@@ -8,13 +8,13 @@ PENDING = ROOT / "literature" / "pending_work.csv"
 def main():
     with PENDING.open(newline="", encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
-    allowed = {"pending","in_progress","partial","complete","waived","waived_no_go"}
+    allowed = {"pending","in_progress","partial","complete","waived","waived_no_go","blocked_tag_only"}
     bad = [r["work_id"] for r in rows if r["status"] not in allowed]
     if bad:
         raise SystemExit(f"invalid status: {bad}")
     counts = Counter(r["status"] for r in rows)
     p0_open = [r for r in rows if r["priority"]=="P0" and r["status"] not in {"complete","waived","waived_no_go"}]
-    print(f"tasks={len(rows)} complete={counts['complete']} in_progress={counts['in_progress']} pending={counts['pending']} partial={counts['partial']} waived={counts['waived']} waived_no_go={counts['waived_no_go']}")
+    print(f"tasks={len(rows)} complete={counts['complete']} in_progress={counts['in_progress']} pending={counts['pending']} partial={counts['partial']} waived={counts['waived']} waived_no_go={counts['waived_no_go']} blocked_tag_only={counts['blocked_tag_only']}")
     print(f"P0 open={len(p0_open)}")
     if p0_open:
         print("PAPER_DRAFTING_GATE=CLOSED")
