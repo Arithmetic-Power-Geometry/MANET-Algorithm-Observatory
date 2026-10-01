@@ -2,6 +2,10 @@ name: ns3 tier1 canonical smoke runs
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/ns3-tier1-smoke-runs.yml'
+      - 'scripts/summarize_canonical_smoke.py'
 
 jobs:
   smoke:
