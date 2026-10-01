@@ -6,6 +6,14 @@ protocol,string,,yes,run,Evaluated implementation label
 scenario_id,string,,yes,run,Frozen scenario identifier
 seed,integer,,yes,run,ns-3 seed
 run_number,integer,,yes,run,ns-3 run number
+node_count,integer,nodes,yes,scenario,Number of simulated nodes
+area_width_m,float,m,yes,scenario,Scenario width
+area_height_m,float,m,yes,scenario,Scenario height
+mobility_model,string,,yes,scenario,Mobility process
+max_speed_mps,float,m/s,yes,scenario,Configured maximum mobility speed
+traffic_model,string,,yes,scenario,Application traffic process
+packet_rate_pps,float,packets/s,yes,scenario,Per-source application packet rate
+payload_bytes,integer,bytes,yes,scenario,Application payload bytes per packet
 measurement_start_s,float,s,yes,run,Start of admitted measurement interval
 measurement_end_s,float,s,yes,run,End of admitted measurement interval
 app_packets_sent,integer,packets,yes,run,Application packets emitted within accounting boundary
