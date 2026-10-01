@@ -8,7 +8,7 @@ Let the admitted measurement interval be [t0,t1] with duration T=t1-t0.
 
 PDR = N_rx / N_tx
 
-where N_tx and N_rx are application packets counted at the same accounting boundary and within the frozen inclusion policy.
+where N_tx is the number of application datagrams offered by the source during the admitted interval and N_rx is the number of uniquely matched application datagrams delivered to the sink under the frozen inclusion policy. Socket/routing-layer acceptance or rejection is recorded separately and never changes the offered-load denominator.
 
 PDR is undefined if N_tx=0.
 
