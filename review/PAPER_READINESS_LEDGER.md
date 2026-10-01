@@ -61,13 +61,13 @@ The repository is the research system; the paper is a compressed, journal-ready 
 ### F. Benchmark
 - [x] Benchmark contract architecture defined.
 - [x] Baseline-selection rules defined.
-- [ ] Simulator/version frozen.
-- [ ] Canonical environment reproducible.
-- [ ] T1 algorithms build and pass smoke tests.
+- [x] Simulator/version frozen (ns-3.47).
+- [x] Canonical environment reproducible for Tier-1 smoke validation.
+- [x] T1 algorithms build and pass canonical smoke tests.
 - [ ] Implementation fidelity documented.
 - [ ] Scenario matrix frozen.
 - [ ] Seed/repetition policy frozen.
-- [ ] Metric definitions frozen.
+- [x] Common confirmatory metric definitions frozen.
 - [ ] Development vs confirmatory scenarios separated.
 - [ ] Information-fairness audit complete.
 - [ ] Cost-fairness audit complete.
