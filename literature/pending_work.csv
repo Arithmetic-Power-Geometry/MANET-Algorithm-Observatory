@@ -20,7 +20,7 @@ P018,novel_algo,P0,Decide G-CAP gate,P012+P017,go/no-go decision,complete
 P019,novel_algo,P0,Design/test novel algorithm only if justified,P018,confirmatory evidence,waived_no_go
 P020,artifacts,P0,Generate final review and benchmark figures/tables,P010-P019,frozen artifact set,complete
 P021,reproducibility,P0,Clean-run regeneration and checksum audit,P020,reproducibility release,complete
-P022,release,P0,Tag/archive evidence release,P021,immutable paper evidence version,pending
-P023,journal,P1,Recheck target journal current requirements,P022,submission profile,pending
+P022,release,P0,Tag/archive evidence release,P021,immutable paper evidence version,blocked_tag_only
+P023,journal,P1,Recheck target journal current requirements,P022,submission profile,complete
 P024,paper,P1,Draft paper from frozen artifacts,P023,complete manuscript,pending
 P025,audit,P1,Claim-evidence reference figure-table algorithm line audit,P024,submission-ready package,pending
