@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: Apache-2.0
+// Copyright © 2026 Mohammad Amir Khusru Akhtar. All Rights Reserved.
 // Copyright (C) 2026 Mohammad Amir Khusru Akhtar
 //
 // MANET Algorithm Observatory — Tier-1 common application measurement runner.
