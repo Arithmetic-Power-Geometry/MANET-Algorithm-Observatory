@@ -1,0 +1,17 @@
+family_or_layer,target_status,verified_V2,extracted_V3,benchmark_assessed,notes
+Foundational classical,in_progress,4,0,partial,AODV DSR OLSR primary specifications plus propagation-validity evidence checked
+Multipath,in_progress,0,0,partial,AOMDV primary bibliographic anchor present; full-text evidence extraction pending
+Hybrid/TORA/ZRP,discovery,0,0,no,Historical specifications seeded; primary study verification pending
+Geographic/position,not_started,0,0,no,
+QoS,not_started,0,0,no,
+Energy-aware,not_started,0,0,no,
+Security/trust,in_progress,1,0,no,Recent security review verified as meta-evidence
+Metaheuristics,not_started,0,0,no,
+Classical ML,not_started,0,0,no,
+Q-learning/RL,in_progress,1,0,no,Decision-centered 2026 survey is meta-evidence only
+DRL,in_progress,1,0,no,Decision-centered 2026 survey is meta-evidence only
+MARL,in_progress,1,0,no,Decision-centered 2026 survey is meta-evidence only
+GNN,in_progress,1,0,no,Decision-centered 2026 survey is meta-evidence only
+Predictive/federated/cross-layer,discovery,1,0,no,Meta-evidence only
+Reproducibility/evaluation,in_progress,3,0,partial,2026 evaluation review propagation study and 2024 real-device study
+Testbed/field,in_progress,1,0,no,2024 real-device opportunistic MANET study
