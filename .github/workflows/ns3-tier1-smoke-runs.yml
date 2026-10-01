@@ -14,7 +14,11 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        protocol: [AODV, DSDV, DSR, OLSR]
+        include:
+          - { protocol: AODV, protocol_id: 2 }
+          - { protocol: DSDV, protocol_id: 3 }
+          - { protocol: DSR, protocol_id: 4 }
+          - { protocol: OLSR, protocol_id: 1 }
     steps:
       - uses: actions/checkout@v4
 
@@ -37,7 +41,7 @@ jobs:
         working-directory: ns-3.47
         run: |
           mkdir -p ../artifacts/raw
-          ./ns3 run "manet-routing-compare --protocol=${{ matrix.protocol }} --traceMobility=0 --CSVfileName=../artifacts/raw/${{ matrix.protocol }}.csv" > ../artifacts/raw/${{ matrix.protocol }}.log 2>&1
+          ./ns3 run "manet-routing-compare --protocol=${{ matrix.protocol_id }} --traceMobility=0 --CSVfileName=../artifacts/raw/${{ matrix.protocol }}.csv" > ../artifacts/raw/${{ matrix.protocol }}.log 2>&1
           test -s ../artifacts/raw/${{ matrix.protocol }}.csv
 
       - name: Validate upstream output schema
