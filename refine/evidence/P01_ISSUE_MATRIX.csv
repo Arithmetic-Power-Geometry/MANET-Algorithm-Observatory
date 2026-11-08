@@ -1,0 +1,17 @@
+section,severity,issue,evidence,status,acceptance_gate
+Title_Abstract,high,graph learning implied experimental,main.tex title and abstract,OPEN,explicit literature-only graph learning
+Introduction,high,closest review novelty not demonstrated,main.tex section I,OPEN,source-grounded comparison
+Review_Method,critical,15 deep records and no independent coding,main.tex section II,OPEN,auditable claim ledger
+Evolution,medium,cost matrix qualitative,main.tex section III,OPEN,operational cost definitions
+Graph_Learning,high,source-specific budgets underexplained,main.tex section IV,OPEN,primary study extraction
+Taxonomy,medium,hybrid coding ambiguous,main.tex section V,OPEN,worked operational rules
+Routing_Families,medium,redundant summary,main.tex section VI,OPEN,distinct evidence synthesis
+Maturity,high,group classifications not source audited,main.tex table VIII,OPEN,CE-level ledger
+Inference,high,novelty lacks worked counterclaim,main.tex section VIII,OPEN,real source-specific reclassification
+Contradictions,medium,possible causes stated as resolutions,main.tex section IX,OPEN,distinguish hypothesis from resolution
+Benchmark,critical,socket rejection and unmatched traces,data/s2_master_results.csv,OPEN,trace hash and rejection mechanism audit
+Statistics,high,nominal CI vs adjusted p interpretation,main.tex section XI,PARTIAL,raw and Holm p verified; audit original bootstrap seed
+Research_Gaps,medium,non-falsifiable future work,main.tex section XII,OPEN,competing outcomes and decisions
+Design_Implications,medium,repeated generic checklist,main.tex section XIII,OPEN,usable evaluation plan
+Threats_Conclusion,high,robustness boundary and inference,main.tex sections XIV-XV,OPEN,conditioned claims and surviving conclusions
+Bibliography,low,80 entries already verified,user REFERENCE_AUDIT.md,PRESERVED,no silent changes
