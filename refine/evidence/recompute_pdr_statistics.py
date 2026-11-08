@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Independent P01 audit. Run from repository root with CSV supplied at --csv.
+"""Independent packet-delivery-ratio analysis. Run from repository root with CSV supplied at --csv.
 Requires pandas numpy scipy. This script does NOT run ns-3."""
 import argparse,hashlib,json
 from pathlib import Path

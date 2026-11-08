@@ -1,30 +1,25 @@
-# Wireless Networks refinement workspace
+# MANET Routing: Evidence and Diagnostic Resources
 
-Target: **Wireless Networks** (Springer Nature), official journal 11276. This directory is a staged, evidence-first development workspace for *Evolution and Evidence in MANET Routing: From Classical Protocols to Graph Learning*.
+This directory contains supporting analysis results and diagnostic software for the study *MANET Routing from Classical Protocols to Graph Learning: Evidence Comparability and a Bounded ns-3 Benchmark*.
 
-## Source of truth and non-negotiable safeguards
-- Preserve the original repository, manuscript, simulation observations, verified bibliography, publication identities and primary citation metadata; never silently regenerate or replace verified references. The supplied November 2026 manuscript ZIP contains an **inline 80-entry bibliography** in `main.tex`, not a separate `references.bib`. Carry its content forward exactly except documented corrections.
-- Maintain traceability from original manuscript claims and tables to original CSVs and code. Label all changes as **source-derived**, **newly verified**, **newly reproduced**, **hypothetical**, or **pending**. Never fabricate experimental data, extra runs, inter-rater agreement, bibliography searches, graph-learning baselines, acceptance probabilities or testbed results.
-- Do not claim the original 31 workstreams are 31 studies: 30 registered studies, 15 deeply structured evidence records, four benchmark protocols, four scenarios and 20 seeds per protocol/scenario are different populations.
-- Protect baseline numerical results. The reported 320 runs, SCALE AODV-minus-DSR PDR difference 0.1625, CI [0.0280, 0.2950], and adjusted p=0.0437 are **claims to reproduce from artifacts**, not newly validated results in this workspace.
-- The supplied journal template package is the December 2024 **sn-jnl** class. Journal-specific rules prevail: max **20 pages of manuscript text excluding figures and bibliography**, 10-point Times New Roman, double line spacing, standard margins, 150–250-word abstract, 4–6 keywords, numbered references, complete editable source, declarations and data availability. Verify the policy again at final submission. Use the user-supplied template files under their license; do not republish arbitrary third-party class files without checking redistribution terms.
-- The journal's subject scope is wireless/mobile networks, protocol design and performance. Frame as **MANET evidence synthesis plus controlled routing-performance evaluation**; graph learning is literature-level unless new legitimate implementation evidence is produced. Determine whether Review Article is available during submission; otherwise justify an appropriate regular article classification without misrepresentation.
-- Quality goal **95+/100 on an auditable internal readiness rubric**, never a promise of journal acceptance.
+## Research materials
 
-## Three sequential prompts
-1. [P01 — evidence and reproducibility audit](P01_evidence_and_experiment_audit.md): identify and repair scientific blockers, run cheapest discriminating experiment if technically possible, commit auditable records.
-2. [P02 — evidence synthesis and manuscript rewrite](P02_evidence_synthesis_and_rewrite.md): revise every section, preserve verified sources, strengthen graph-learning and comparative claims, commit complete evidence-backed manuscript content.
-3. [P03 — Springer template, build and final gate](P03_springer_template_and_submission.md): port to supplied template, enforce journal limits, compile and visually inspect, release only verified submission artifacts and final checklist.
+| File | Description |
+|---|---|
+| [evidence/aodv_dsr_pdr_comparisons.csv](evidence/aodv_dsr_pdr_comparisons.csv) | Scenario-specific AODV–DSR packet-delivery-ratio comparisons and statistical results. |
+| [evidence/comparability_evidence_registry.csv](evidence/comparability_evidence_registry.csv) | Source-level verification, comparability, and evidence-maturity cross-checks. |
+| [evidence/recompute_pdr_statistics.py](evidence/recompute_pdr_statistics.py) | Independent computation of PDR comparisons from the seed-level source CSV. |
+| [experiments/observatory_tier1_runner_diagnostic.cc](experiments/observatory_tier1_runner_diagnostic.cc) | Isolated ns-3 diagnostic runner with socket-error, packet-attempt and sampled-mobility recording. |
+| [experiments/check_diagnostics.py](experiments/check_diagnostics.py) | Checks packet accounting and offered-transmission schedules. |
+| [experiments/check_mobility.py](experiments/check_mobility.py) | Compares sampled node-position records across runs. |
+| [experiments/test_diagnostic_checkers.py](experiments/test_diagnostic_checkers.py) | Synthetic positive and negative regression tests for diagnostic checkers. |
 
-## Required directory outputs (created only when actually available)
-`refine/evidence/`: source manifest, audit logs, tracked statistical outputs, V/C/E decision ledger and evidence limitations.
-`refine/experiments/`: design, reproducible commands, actual outputs and hashes, including negative/failure records.
-`refine/manuscript/`: revised sections, figures, declarations and bibliography retained from verified source.
-`refine/submission/`: Springer LaTeX source ZIP, compiled review PDF, measured length/format report, cover letter and preflight.
-`refine/prompts/`: optional execution logs (avoid storing private chat or prompt history in publication-ready artifacts).
+The [benchmark specifications](../benchmark/) and [experimental analysis artifacts](../artifacts/s2/) provide the broader scenario and metric context.
 
-Advance to the next prompt only after recording the earlier prompt's commit hash and blockers. Prior work is never overwritten without an explicit provenance note.
+## Analysis scope
 
-## Official guidance
-- https://link.springer.com/journal/11276/submission-guidelines
-- https://link.springer.com/journal/11276/aims-and-scope
+The recorded benchmark covers four ns-3.47 routing implementations (AODV, DSDV, DSR and OLSRv1), four scenarios (BASE, FAST, LOAD and SCALE), and 20 numerical seed labels per protocol–scenario cell (320 recorded runs). The seed-level CSV used for statistical reanalysis has SHA-256 `e848c565e41de92ddf41d2db52b4c3e154e848de1758c7ac07a6b7a3f6d54a56`. This CSV is **not currently included in this directory**; the statistical reproduction script requires it as an input.
+
+The SCALE AODV-minus-DSR mean PDR contrast was 0.1625 (within-scenario Holm-adjusted Wilcoxon p = 0.0437) when matching records by their numerical seed labels. Those labels do not establish equivalence of realized mobility or traffic trajectories. The recorded OLSRv1 runs contained 4,886 sender-socket rejections out of 11,000 offered datagrams; their cause was not logged in the original records. No independent ns-3.47 rerun, alternate-propagation experiment, or field deployment is claimed here.
+
+The diagnostic tools are separate from the original benchmark source. Python checker tests passed in [GitHub Actions](https://github.com/Arithmetic-Power-Geometry/MANET-Algorithm-Observatory/actions/runs/42458668262), using synthetic fixtures; this does not constitute execution of the ns-3 diagnostic runner.

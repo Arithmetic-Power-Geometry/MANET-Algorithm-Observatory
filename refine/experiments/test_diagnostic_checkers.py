@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synthetic fixtures only: exercise P01 diagnostic checkers without ns-3.
+"""Synthetic fixtures only: exercise diagnostic checkers without ns-3.
 Run: python -m unittest refine/experiments/test_diagnostic_checkers.py -v
 """
 import csv
