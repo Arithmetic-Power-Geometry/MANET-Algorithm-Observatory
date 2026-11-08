@@ -1,0 +1,21 @@
+name: P01 diagnostic checker tests
+on:
+  push:
+    paths:
+      - 'refine/experiments/check_diagnostics.py'
+      - 'refine/experiments/check_mobility.py'
+      - 'refine/experiments/test_diagnostic_checkers.py'
+      - '.github/workflows/refine-p01-diagnostic-tests.yml'
+  workflow_dispatch:
+jobs:
+  diagnostic-unit-tests:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Python diagnostic checker regression tests (synthetic fixtures)
+        run: python -m unittest discover -s refine/experiments -p 'test_diagnostic_checkers.py' -v
