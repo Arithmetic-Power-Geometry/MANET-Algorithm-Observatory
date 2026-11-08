@@ -191,14 +191,14 @@ int main(int argc,char** argv)
   Simulator::Stop(Seconds(simTime)); Simulator::Run(); Simulator::Destroy();
   if(!diagnosticPrefix.empty()) {
     std::ofstream errors(diagnosticPrefix+"-socket-errors.csv");
-    errors<<"socket_errno,count\\n";
-    for(const auto& e:gSocketErrorCounts) errors<<e.first<<","<<e.second<<"\\n";
+    errors<<"socket_errno,count\n";
+    for(const auto& e:gSocketErrorCounts) errors<<e.first<<","<<e.second<<"\n";
     std::ofstream attempts(diagnosticPrefix+"-attempts.csv");
-    attempts<<"source_id,sequence,simulation_time_ns\\n";
-    for(const auto& e:gAttemptEvents) attempts<<e<<"\\n";
+    attempts<<"source_id,sequence,simulation_time_ns\n";
+    for(const auto& e:gAttemptEvents) attempts<<e<<"\n";
     std::ofstream mobility(diagnosticPrefix+"-mobility.csv");
-    mobility<<"simulation_time_ns,node_id,x_m,y_m,z_m\\n";
-    for(const auto& e:gMobilitySamples) mobility<<e<<"\\n";
+    mobility<<"simulation_time_ns,node_id,x_m,y_m,z_m\n";
+    for(const auto& e:gMobilitySamples) mobility<<e<<"\n";
   }
 
   double T=simTime-start, pdr=gTxAttempts?double(gRxPackets)/gTxAttempts:NAN, goodput=T>0?8.0*gRxBytes/T:NAN;
