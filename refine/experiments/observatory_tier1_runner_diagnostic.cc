@@ -34,6 +34,7 @@ static uint64_t gTxAttempts=0, gTxRejected=0, gTxAccepted=0, gRxPackets=0, gOffe
 static int gBindStatus=-999;
 static std::map<int,uint64_t> gSocketErrorCounts;
 static std::vector<std::string> gAttemptEvents;
+static std::vector<std::string> gMobilitySamples;
 static std::vector<double> gDelaysMs;
 static std::unordered_set<uint64_t> gSeenPacketId;
 
@@ -108,6 +109,22 @@ static void Receive(Ptr<Socket> socket)
   }
 }
 
+static void SampleMobility(NodeContainer nodes, Time interval, Time stop)
+{
+  const uint64_t nowNs=static_cast<uint64_t>(Simulator::Now().GetNanoSeconds());
+  for(uint32_t i=0;i<nodes.GetN();++i)
+  {
+    Ptr<MobilityModel> model=nodes.Get(i)->GetObject<MobilityModel>();
+    NS_ABORT_MSG_IF(!model,"Missing mobility model");
+    Vector pos=model->GetPosition();
+    std::ostringstream line;
+    line<<nowNs<<","<<i<<","<<std::setprecision(17)<<pos.x<<","<<pos.y<<","<<pos.z;
+    gMobilitySamples.push_back(line.str());
+  }
+  if(Simulator::Now()+interval<=stop)
+    Simulator::Schedule(interval,&SampleMobility,nodes,interval,stop);
+}
+
 static double Percentile(std::vector<double> v,double q)
 {
   if(v.empty()) return NAN;
@@ -120,6 +137,7 @@ static double Percentile(std::vector<double> v,double q)
 int main(int argc,char** argv)
 {
   std::string protocol="AODV", output="observatory-run.csv", scenario="engineering-common-001", observatoryCommit="unknown", diagnosticPrefix="";
+  double mobilitySampleSeconds=0.5;
   uint32_t nodes=25, payload=512; double simTime=60.0, start=10.0, ratePps=2.0, speed=5.0, area=500.0; bool staticGrid=false; uint32_t seed=12345, run=1;
   CommandLine cmd(__FILE__);
   cmd.AddValue("protocol","AODV, DSDV, DSR, or OLSR",protocol);
@@ -128,6 +146,7 @@ int main(int argc,char** argv)
   cmd.AddValue("simTime","Simulation seconds",simTime); cmd.AddValue("start","Measurement/application start",start);
   cmd.AddValue("ratePps","Packets per second",ratePps); cmd.AddValue("speed","RandomWaypoint max speed m/s",speed); cmd.AddValue("area","Square area side metres",area); cmd.AddValue("staticGrid","Use deterministic static grid sanity topology",staticGrid);
   cmd.AddValue("diagnosticPrefix","Optional diagnostic output prefix (CSV files)",diagnosticPrefix);
+  cmd.AddValue("mobilitySampleSeconds","Sampling interval for diagnostic node positions (seconds)",mobilitySampleSeconds);
   cmd.AddValue("seed","RNG seed",seed); cmd.AddValue("run","RNG run",run); cmd.Parse(argc,argv);
   NS_ABORT_MSG_IF(protocol!="AODV"&&protocol!="DSDV"&&protocol!="DSR"&&protocol!="OLSR","Unsupported protocol");
   RngSeedManager::SetSeed(seed); RngSeedManager::SetRun(run);
@@ -167,6 +186,8 @@ int main(int argc,char** argv)
   Ptr<Sender> sender=CreateObject<Sender>();
   sender->Setup(InetSocketAddress(ifs.GetAddress(nodes-1),port),payload,Seconds(1.0/ratePps),Seconds(simTime));
   n.Get(0)->AddApplication(sender); sender->SetStartTime(Seconds(start)); sender->SetStopTime(Seconds(simTime));
+  NS_ABORT_MSG_IF(mobilitySampleSeconds<=0.0,"mobilitySampleSeconds must be positive");
+  if(!diagnosticPrefix.empty()) Simulator::ScheduleNow(&SampleMobility,n,Seconds(mobilitySampleSeconds),Seconds(simTime));
   Simulator::Stop(Seconds(simTime)); Simulator::Run(); Simulator::Destroy();
   if(!diagnosticPrefix.empty()) {
     std::ofstream errors(diagnosticPrefix+"-socket-errors.csv");
@@ -175,6 +196,9 @@ int main(int argc,char** argv)
     std::ofstream attempts(diagnosticPrefix+"-attempts.csv");
     attempts<<"source_id,sequence,simulation_time_ns\\n";
     for(const auto& e:gAttemptEvents) attempts<<e<<"\\n";
+    std::ofstream mobility(diagnosticPrefix+"-mobility.csv");
+    mobility<<"simulation_time_ns,node_id,x_m,y_m,z_m\\n";
+    for(const auto& e:gMobilitySamples) mobility<<e<<"\\n";
   }
 
   double T=simTime-start, pdr=gTxAttempts?double(gRxPackets)/gTxAttempts:NAN, goodput=T>0?8.0*gRxBytes/T:NAN;
